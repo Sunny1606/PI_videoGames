@@ -1,23 +1,23 @@
-const { Videogame } = require("../models/Videogame");
-const { Genres } = require("../models/Genres");
+const { Videogame, Genres } = require("../db");
 const router = require("../routes");
 const { Op } = require("sequelize");
 const axios = require("axios");
 
+
 //obtiene todos los juegos
-router.get("/videogames", async (req, res) => {
+const getAllVideogames =  async (req, res) => {
   try {
     const videogames = await Videogame.findAll();
     res.json(videogames);
   } catch (error) {
     res.status(500).send("Hubo un error al obtener los videogames.");
   }
-});
+};
 
 //obtiene juegos por id
-router.get("/videogames/:idVideogame", async (req, res) => {
-  const { id } = req.params;
+const getVideogamesById = async (req, res) => {
   try {
+    const { id } = req.params;   
     const game = await Videogame.findByPk(id);
     if (game) res.json(game);
     else {
@@ -26,12 +26,12 @@ router.get("/videogames/:idVideogame", async (req, res) => {
   } catch (error) {
     res.status(500).send("Hubo un error al obtener el detalle del videogame.");
   }
-});
+};
 
 //obtiene por query {name}
-router.get("/videogames/name", async (req, res) => {
-  const { name } = req.query;
+const getGameByName = async (req, res) => {
   try {
+    const { name } = req.query;
     const results = await Videogame.findAll({
       where: {
         nombre: {
@@ -55,10 +55,10 @@ router.get("/videogames/name", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Hubo un error al buscar los videojuegos." });
   }
-});
+};
 
 //obtiene por generos
-router.get("/genres", async (req, res) => {
+const getGenres = async (req, res) => {
   try {
     const dataGenres = await Genres.findAll();
 
@@ -82,4 +82,12 @@ router.get("/genres", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Hubo un error al obtener los géneros" });
   }
-});
+};
+
+
+module.exports = {
+  getAllVideogames,
+  getVideogamesById,
+  getGameByName,
+  getGenres
+}

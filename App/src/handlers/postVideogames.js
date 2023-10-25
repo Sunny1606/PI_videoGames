@@ -1,21 +1,32 @@
 const router = require("../routes");
-const { Videogame, Genres } = require("../models");
+const { Videogame, Genres } = require("../db");
 const { Router } = require("express");
-//crear un juego nuevo en la base de datos , recibe por body
 
-router.post("/videogames", async (req, res) => {
+const postVideogames = async (req, res) => {
   try {
-    const { name, genres } = req.body;
-
-    const newVideogame = await Videogame.Create({ name });
-    if (genres && genres.length > 0) {
-
-      const genresExist = await Genres.findAll({ where: { name: genres }});
-      await newVideogame.setGenres(genresExist);
-
+    const { name, description, platform, image, date, rating} = req.body;
+    if (!name || !description || !platform || !image || !date || !rating) res.status(401).json("Faltan datos");
+    else {
+      const newVideogame = await Videogame.create({
+        where: {
+          name: name,
+          description: description,
+          platform: platform,
+          image: image,
+          date: date,
+          rating: rating,
+        }
+      });
+      if (genres && genres.length > 0) {
+        const genresExist = await Genres.findAll({ where: { name: genres } });
+        await newVideogame.setGenres(genresExist);
+      }
+      res.json(newVideogame);
     }
-    res.json(newVideogame);
+
   } catch (error) {
-    res.status(500).json({ error: 'Hubo un error al crear el videojuego.' });
+    res.status(500).json({ error: "Hubo un error al crear el videojuego." });
   }
-});
+};
+
+module.exports = postVideogames;
