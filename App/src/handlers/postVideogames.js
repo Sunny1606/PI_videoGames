@@ -1,32 +1,39 @@
 const router = require("../routes");
-const { Videogame, Genres } = require("../db");
+const { Videogame} = require("../db");
 const { Router } = require("express");
+const { Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 
 const postVideogames = async (req, res) => {
   try {
-    const { name, description, platform, image, date, rating} = req.body;
-    if (!name || !description || !platform || !image || !date || !rating) res.status(401).json("Faltan datos");
-    else {
-      const newVideogame = await Videogame.create({
-        where: {
-          name: name,
-          description: description,
-          platform: platform,
-          image: image,
-          date: date,
-          rating: rating,
-        }
-      });
-      if (genres && genres.length > 0) {
-        const genresExist = await Genres.findAll({ where: { name: genres } });
-        await newVideogame.setGenres(genresExist);
-      }
-      res.json(newVideogame);
-    }
+    const { name, image, description, date, rating , platform} = req.body;
 
+    const existingGame = await Videogame.findOne({
+      where: {
+        name: {
+          [Op.iLike]: name,
+        },
+      },
+    });
+
+    if (existingGame) {
+      throw new Error("El nombre del juego ya existe.");
+    }
+    const newVideogame = await Videogame.create({
+      name,
+      image,
+      description,
+      date,
+      rating,
+      platform
+    });
+
+    return res.status(201).json(newVideogame);
   } catch (error) {
-    res.status(500).json({ error: "Hubo un error al crear el videojuego." });
+    return res.status(500).json(error.message);
   }
 };
 
 module.exports = postVideogames;
+
+//buscar en sequelize como es el datatype de DATE
