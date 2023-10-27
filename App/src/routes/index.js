@@ -1,23 +1,36 @@
 const router = require("express").Router();
-const games = require("../handlers/games");
-const {getAllVideogames, getVideogamesById, getGameByName , getGenres}  = require("../handlers/getVideogames");  
+const {
+  getVideogamesById,
+  getGameByName,
+  getGenres,
+} = require("../handlers/getVideogames");
 const postVideogames = require("../handlers/postVideogames");
-const validateAPIKey = require("../utils/validateAPIKey");
+const axios = require("axios");
 
 
-router.get("/videogames" , validateAPIKey, games); //API videogames
 
-router.get("/allvideogames" , getAllVideogames);    //allJUEGOS data base
+//obtiene un array de todos los videogames
+router.get("/videogames", async (req, res) => {
+  try {
+    const apiKey = process.env.RAWG_API_KEY; 
+    const response = await axios.get(
+      `https://api.rawg.io/api/games?key=${apiKey}`
+    );
+    const videogames = response.data.results;
+    res.json(videogames);
+  } catch (error) {
+    res.status(500).send("Hubo un error al obtener los videojuegos.");
+  }
+});
 
-router.get("/game/:id" , getVideogamesById);   // BY ID
 
-router.get("/genres" , getGenres); // BY GENEROS
 
-router.get("/games" , getGameByName); // BY NOMBRE
+router.get("/game/:id", getVideogamesById); // BY ID
 
-router.post("/videogames" , postVideogames);   //CREA JUEGOS
+router.get("/genres", getGenres); // BY GENEROS
 
+router.get("/games", getGameByName); // BY NOMBRE
+
+router.post("/videogames", postVideogames); //CREA JUEGOS
 
 module.exports = router;
-
-
