@@ -1,21 +1,49 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import { Route, Routes, useLocation } from "react-router-dom";
 import PATHROUTES from "./components/Helpers/pathRoutes";
-// import Nav from "./components/Nav/Nav";
-import Home from "./components/Home/Home";
+// import Home from "./components/HomePage/homePage";
 import LandingPage from "./components/LandingPage/landingPage";
+import Nav from "./components/Nav/nav";
+import axios from "axios";
+import { useState } from "react";
+import Cards from "./components/GameCards/cards";
 
 function App() {
-  // const { pathname } = useLocation();
+
+  //cambios del estado
+  const [videogames, setVideogames] = useState([]);
+
+
+  const handleSearch = async (id) => {
+    try {
+      const { data } = await axios(
+        `http://localhost:3005/games/${id}`
+      );
+      if (data.name) {
+        setVideogames([...videogames, data]);
+      } else {
+        window.alert("No hay videogames con este ID");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const hndleOnClose = (id) => {
+    const filtro = videogames.filter((ch) => ch.id !== id);
+    setVideogames(filtro);
+  };
+
+
+  const { pathname } = useLocation();
+
   return (
-
-
-    
-    <div className="App">
-      {/* {pathname === "/home" && <Nav />} */}
+    <div>
+      {pathname !== "/" && <Nav  onSearch={handleSearch}/>}
+     
       <Routes>
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
-        <Route path={PATHROUTES.HOME} element={<Home />} />
+        <Route  path={PATHROUTES.HOME}
+            element={<Cards characters={videogames} onClose={hndleOnClose}/>} />
       </Routes>
     </div>
   );

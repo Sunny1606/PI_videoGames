@@ -1,26 +1,36 @@
-.landingPage{
-  background-image: url('../image/videogame.png'); /* Ajusta la ruta a tu imagen de fondo */
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+.title {
+  padding: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-}
-.content {
   text-align: center;
-  color: black;
+  color: rgb(226, 226, 255);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
-.button{
-  padding: 10px 20px;
-  font-size: 16px;
-  color: rgb(136, 42, 42);
+.button {
+  display: block;
+  margin: 0 auto;
+  background-color: #7433ff;
+  padding: 5px 20px;
+  color: rgb(0, 0, 0);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-decoration: none;
 }
 .button:hover {
-  background-color: #cf4343; /* Cambia el color de fondo al pasar el cursor sobre el botón */
+  background-color: #925fff;
+}
+.image {
+  background-image: url("../Image/hd-pc-gaming-wallpaper-scaled.jpg");
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }

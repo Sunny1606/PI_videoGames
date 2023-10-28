@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import styles from "./landing.module.css";
+import PATHROUTES from "../Helpers/pathRoutes";
 
 const LandingPage = () => {
   return (
-   <div className={styles.landingPage}>
-     <div className={styles.content}>
-      <h1 className={styles.title}>BIENVENIDOS A VIDEOGAMES</h1>
-      <Link>
-        <button className={styles.button}>EMPEZAR</button>
-      </Link>
+    <div>
+      <div className={styles.image}></div>
+      <h1 className={styles.title}>Welcome to VideoGames</h1>
+      <button className={styles.button}>
+        <Link className={styles.button} to={PATHROUTES.HOME}>
+          GO IT!
+        </Link>
+      </button>
     </div>
-   </div>
   );
 };
 

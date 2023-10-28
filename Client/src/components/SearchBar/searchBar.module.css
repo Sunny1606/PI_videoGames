@@ -1,0 +1,31 @@
+div button:hover {
+  cursor: pointer;
+}
+
+div input {
+  background-color: white;
+  font-size: 15px;
+  outline: none;
+  height: 30px;
+  padding: 1 10px;
+  font-weight: 400;
+  margin-right: 15px;
+
+}
+
+.search {
+  background-color: #4a0644;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-decoration: none;
+  margin-right: 15px;
+  color: rgb(255, 255, 255);
+
+}
+
+.search:hover {
+  background-color: #900b84;
+}

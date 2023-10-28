@@ -10,7 +10,7 @@ const axios = require("axios");
 
 
 //obtiene un array de todos los videogames
-router.get("/videogames", async (req, res) => {
+router.get("/games", async (req, res) => {
   try {
     const apiKey = process.env.RAWG_API_KEY; 
     const response = await axios.get(
@@ -25,12 +25,12 @@ router.get("/videogames", async (req, res) => {
 
 
 
-router.get("/game/:id", getVideogamesById); // BY ID
+router.get("/games/:id", getVideogamesById); // BY ID
 
 router.get("/genres", getGenres); // BY GENEROS
 
 router.get("/games", getGameByName); // BY NOMBRE
 
-router.post("/videogames", postVideogames); //CREA JUEGOS
+router.post("/createdgames", postVideogames); //CREA JUEGOS
 
 module.exports = router;

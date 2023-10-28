@@ -1,0 +1,1 @@
+//formulario para crear un nuevo game 

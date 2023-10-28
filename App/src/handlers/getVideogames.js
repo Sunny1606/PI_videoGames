@@ -32,36 +32,63 @@ const getVideogamesById = async (req, res) => {
 
 //obtiene por query {name}
 const getGameByName = async (req, res) => {
+  const apiKey = '95817a7e4a5b4f108f31cffdc2c8d8e1'; // Reemplaza con tu clave de API
+  const apiUrl = 'https://api.rawg.io/api/games';
+
   try {
-    const { name } = req.query;
-
-    const databaseResults = await Videogame.findAll({
-      where: {
-        nombre: {
-          [Op.iLike]: `%${name}%`,
-        },
-      },
-      limit: 15,
+    const response = await axios.get(apiUrl, {
+      params: {
+        key: apiKey
+      }
     });
-    const apiKey = process.env.RAWG_API_KEY;
-    const apiRes = await axios.get(
-      `https://api.rawg.io/api/games?key=${apiKey}&search=${name}&page_size=15`
-    );
 
-    const apiResults = apiRes.data.results;
-    const combinedResults = [...databaseResults, ...apiResults];
-
-    if (combinedResults.length > 0) {
-      res.json(combinedResults);
+    if (response.status === 200) {
+      const data = response.data;
+      res.json(data);
+    
     } else {
-      res.json({ message: "No se encontraron resultados" });
+      throw Error (`Error de respuesta HTTP: ${response.status}`);
     }
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Hubo un error al buscar el videojuego con ese nombre" });
+    res.json("Hubo un error al obtener los datos:", error);
   }
 };
+
+
+
+
+// const getGameByName = async (req, res) => {
+//   try {
+//     const { name } = req.query;
+    
+//     const databaseResults = await Videogame.findAll({
+//       where: {
+//         name: {
+//           [Op.iLike]: `%${name}%`,
+//         },
+//       },
+//       limit: 15,
+//     });
+//     const apiKey = process.env.RAWG_API_KEY;
+//     const apiRes = await axios.get(
+//       `https://api.rawg.io/api/games?key=${apiKey}&search=${name}&page_size=15`
+//     );
+    
+//     const apiResults = apiRes.data.results;
+//     console.log(apiResults);
+//     const combinedResults = [...databaseResults, ...apiResults];
+
+//     if (combinedResults.length > 0) {
+//       res.json(combinedResults);
+//     } else {
+//       res.json({ message: "No se encontraron resultados" });
+//     }
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ error: "Hubo un error al buscar el videojuego con ese nombre" });
+//   }
+// };
 
 //obtiene tanto de API como de la base de datos los generos
 const getGenres = async (req, res) => {
