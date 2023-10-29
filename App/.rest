@@ -1,0 +1,31 @@
+Send Request
+
+RUTAS A UTILIZAR
+
+GET genres https://api.rawg.io/api/genres?key=95817a7e4a5b4f108f31cffdc2c8d8e1
+##
+
+GET games https://api.rawg.io/api/games?key=95817a7e4a5b4f108f31cffdc2c8d8e1
+##
+
+GET names https://api.rawg.io/api/games?search=NAMEGAME
+##
+
+GET id https://api.rawg.io/api/games?search=IDGAME
+
+
+
+
+
+RUTAS A REALIZAR
+
+GET allgames http://:localhost3005/games
+##
+
+GET id http://:localhost3005/games/{id}  
+##
+
+GET name http://:localhost3005/games?=name 
+##
+
+GET genres  http://:localhost3005/genres 

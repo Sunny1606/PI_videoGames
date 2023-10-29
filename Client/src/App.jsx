@@ -6,6 +6,7 @@ import Nav from "./components/Nav/nav";
 import axios from "axios";
 import { useState } from "react";
 import Cards from "./components/GameCards/cards";
+import Form from "./components/FormPage/form";
 
 function App() {
 
@@ -42,8 +43,11 @@ function App() {
      
       <Routes>
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
-        <Route  path={PATHROUTES.HOME}
-            element={<Cards characters={videogames} onClose={hndleOnClose}/>} />
+        <Route path={PATHROUTES.FORM} element= {<Form/>} />
+        <Route
+            path={PATHROUTES.HOME}
+            element={<Cards videogames={videogames} onClose={hndleOnClose} />}
+          />
       </Routes>
     </div>
   );

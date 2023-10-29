@@ -2,96 +2,74 @@ const { Videogame, Genres } = require("../db");
 const router = require("../routes");
 const { Op } = require("sequelize");
 const axios = require("axios");
+require('dotenv').config();
+const API_KEY = process.env.RAWG_API_KEY;
 
-//obtiene juegos por id
+
+//obtiene juegos por id desde la API y de la base de datos 
 const getVideogamesById = async (req, res) => {
+  const API_URL = "https://api.rawg.io/api/games";
+
   try {
     const { id } = req.params;
+    let videogame = {};
 
-    const apiKey = process.env.RAWG_API_KEY;
-    const apiResponse = await axios.get(
-      `https://api.rawg.io/api/games/${id}?key=${apiKey}`
-    );
-    const apiGame = apiResponse.data;
-
-    if (apiGame) {
-      res.json(apiGame);
-    } else {
+    // Intenta buscar en la API
+    try {
+      const { name, description, platform, date, rating, image } = (
+        await axios.get(API_URL + id)
+      ).data;
+      videogame = { id, name, description, platform, rating, date, image };
+    } catch (apiError) {
+      // Si no se encuentra en la API, busca en la base de datos local
       const game = await Videogame.findByPk(id);
-
       if (game) {
-        res.json(game);
+        videogame = game;
       } else {
-        res.status(404).send("Videogame no encontrado");
+        return res.status(404).send("Videojuego no encontrado");
       }
     }
+
+    return res.json(videogame);
   } catch (error) {
-    res.status(500).send("Hubo un error al obtener el detalle del videogame.");
+    res.status(500).send({ message: error.message });
   }
 };
 
 //obtiene por query {name}
 const getGameByName = async (req, res) => {
-  const apiKey = '95817a7e4a5b4f108f31cffdc2c8d8e1'; // Reemplaza con tu clave de API
-  const apiUrl = 'https://api.rawg.io/api/games';
+  const API_URL = "https://api.rawg.io/api/games";
 
   try {
-    const response = await axios.get(apiUrl, {
-      params: {
-        key: apiKey
-      }
-    });
+    const { name } = req.params;
+    let videogame = {};
 
-    if (response.status === 200) {
-      const data = response.data;
-      res.json(data);
-    
-    } else {
-      throw Error (`Error de respuesta HTTP: ${response.status}`);
+    // Intenta buscar en la API
+    try {
+      const { name, description, platform, date, rating, image } = (
+        await axios.get(API_URL + name)
+      ).data;
+      videogame = { id, name, description, platform, rating, date, image };
+    } catch (apiError) {
+      // Si no se encuentra en la API, busca en la base de datos local
+      const game = await Videogame.findByPk(name);
+      if (game) {
+        videogame = game;
+      } else {
+        return res.status(404).send("Videojuego no encontrado");
+      }
     }
+    return res.json(videogame);
   } catch (error) {
-    res.json("Hubo un error al obtener los datos:", error);
+    res.status(500).send({ message: error.message });
   }
 };
 
 
-
-
-// const getGameByName = async (req, res) => {
-//   try {
-//     const { name } = req.query;
-    
-//     const databaseResults = await Videogame.findAll({
-//       where: {
-//         name: {
-//           [Op.iLike]: `%${name}%`,
-//         },
-//       },
-//       limit: 15,
-//     });
-//     const apiKey = process.env.RAWG_API_KEY;
-//     const apiRes = await axios.get(
-//       `https://api.rawg.io/api/games?key=${apiKey}&search=${name}&page_size=15`
-//     );
-    
-//     const apiResults = apiRes.data.results;
-//     console.log(apiResults);
-//     const combinedResults = [...databaseResults, ...apiResults];
-
-//     if (combinedResults.length > 0) {
-//       res.json(combinedResults);
-//     } else {
-//       res.json({ message: "No se encontraron resultados" });
-//     }
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .json({ error: "Hubo un error al buscar el videojuego con ese nombre" });
-//   }
-// };
-
 //obtiene tanto de API como de la base de datos los generos
 const getGenres = async (req, res) => {
+  // const URL = "https://api.rawg.io/api/genres";
+
   try {
     const dataGenres = await Genres.findAll();
 
@@ -102,12 +80,12 @@ const getGenres = async (req, res) => {
       }));
       res.json(mappedGenres);
     } else {
-      const apiResp = await axios.get(
-        `https://api.rawg.io/api/genres?key=${API_KEY}`
-      );
-
+      // Si no se encontraron géneros en la base de datos, busca en la API
+      // const apiResp = await axios.get(URL)
+      const apiResp = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
       const apiGenres = apiResp.data.results;
 
+      // Almacena los géneros de la API en la base de datos
       await Genres.bulkCreate(apiGenres);
 
       const mappedApiGenres = apiGenres.map((genre) => ({
@@ -121,6 +99,7 @@ const getGenres = async (req, res) => {
     res.status(500).json({ error: "Hubo un error al obtener los géneros" });
   }
 };
+
 
 module.exports = {
   getVideogamesById,

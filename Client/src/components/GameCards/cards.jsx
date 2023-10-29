@@ -5,7 +5,7 @@ export default function Cards({ videogames, onClose }) {
     return (
       <div className={styles.container}>
         {videogames.map((videogames) => {
-          console.log(videogames);
+         
           return (
             <Card
               key={videogames.id}

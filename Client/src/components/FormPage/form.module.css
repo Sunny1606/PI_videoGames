@@ -1,0 +1,30 @@
+.button {
+    color: black;
+    text-align: center;
+    display: flex;
+    margin-bottom: 100px;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.title {
+  color: black;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    
+}
+
+.conteiner{
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    padding: 25px;
+    /* margin: 30px 0 0 0; */
+    margin-top: 50px;
+    border-radius: 8px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #fff;
+}

@@ -2,6 +2,7 @@ import PATHROUTES from "../Helpers/pathRoutes";
 import SearchBar from "../SearchBar/searchBar";
 import styles from "./Nav.module.css";
 import { Link } from "react-router-dom";
+// import Form from "../FormPage/form";
 
 const Nav = () => {
   return (
@@ -19,7 +20,7 @@ const Nav = () => {
         </button>
 
         <button className={styles.button}>
-          <Link className={styles.links} to={PATHROUTES.HOME}>
+          <Link className={styles.links} to={PATHROUTES.FORM}>
             CREATE
           </Link>
         </button>

@@ -1,32 +1,33 @@
 import { useState } from "react";
-import styles from "./SearchBar.module.css";
+import styles from "./searchBar.module.css";
 
-// eslint-disable-next-line react/prop-types
-const SearchBar = ({onSearch}) => {
+const SearchBar = ({ onSearch }) => {
+  const [name, setName] = useState('');
 
-  let [aux, setAux] = useState('');
-  let [id, setId] = useState ('');
-
-   
   const handleChange = (event) => {
-      setId(event.target.value);
-    };
+    setName(event.target.value);
+  };
 
-  function detector(id) {
-    setAux(id)
-    if(id !== aux) {
-      onSearch(id)
-    }
-
-  }
   return (
     <div>
-      <input className={styles.input}
-      type="search" onChange={handleChange}
-      value={id} />
-      <button onClick={() => detector(id)} className={styles.search}>SEARCH</button>
+      <input
+        className={styles.input}
+        type="search"
+        onChange={handleChange}
+        value={name}
+      />
+      <button
+        onClick={() => {
+          if (name !== aux) {
+            onSearch(name);
+          }
+        }}
+        className={styles.search}
+      >
+        SEARCH
+      </button>
     </div>
   );
-}
+};
 
 export default SearchBar;

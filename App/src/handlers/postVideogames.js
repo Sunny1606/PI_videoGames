@@ -36,4 +36,4 @@ const postVideogames = async (req, res) => {
 
 module.exports = postVideogames;
 
-//buscar en sequelize como es el datatype de DATE
+

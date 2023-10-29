@@ -1,1 +1,117 @@
-//formulario para crear un nuevo game 
+import style from "./form.module.css";
+import { useState } from "react";
+import Validation from "./Validation";
+
+const Form = () => {
+  const [errors, setErrors] = useState([]);
+  const [userData, setUserData] = useState({
+    name: "",
+    description: "",
+    platform: "",
+    image: "",
+    date: "",
+    rating: "",
+  });
+
+  const handleChange = (e) => {
+    setErrors(Validation({ ...userData, [e.target.name]: e.target.value }));
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(userData);                 //manejar en App este error 
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <h2 className={style.title}>Form Create Game</h2>
+        </div>
+        <div className={style.conteiner}>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            value={userData.name}
+            onChange={handleChange}
+          />
+        </div>
+        {errors.e1 ? (          // ! verificar que errores puedo inventarle y agregarlos en validate !!
+          <p>{errors.e1}</p>
+        ) : errors.e2 ? (
+          <p>{errors.e2}</p>
+        ) : (
+          <p>{errors.e3}</p>
+        )}
+        <div className={style.conteiner}>
+          <label htmlFor="platform">Platform:</label>
+          <input
+            type="text"
+            id="platform"
+            name="platform"
+            required
+            value={userData.platform}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={style.conteiner}>
+          <label htmlFor="description">Description:</label>
+          <br />
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            cols="50"
+            required
+            value={userData.description}
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className={style.conteiner}>
+          <label htmlFor="image"> URL Image:</label>
+          <input
+            type="url"
+            id="image"
+            name="image"
+            required
+            value={userData.image}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={style.conteiner}>
+          <label htmlFor="date">Date:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            required
+            value={userData.date}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={style.conteiner}>
+          <label htmlFor="rating">Rating:</label>
+          <input
+            type="number"
+            id="rating"
+            name="rating"
+            min="1"
+            max="10"
+            required
+            value={userData.rating}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <button className={style.button}>Submit</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Form;
