@@ -1,12 +1,12 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import PATHROUTES from "./components/Helpers/pathRoutes";
-// import Home from "./components/HomePage/homePage";
 import LandingPage from "./components/LandingPage/landingPage";
 import Nav from "./components/Nav/nav";
 import axios from "axios";
 import { useState } from "react";
 import Cards from "./components/GameCards/cards";
 import Form from "./components/FormPage/form";
+import Detail from "./components/Detail/detaillGame"
 
 function App() {
 
@@ -48,6 +48,7 @@ function App() {
             path={PATHROUTES.HOME}
             element={<Cards videogames={videogames} onClose={hndleOnClose} />}
           />
+           <Route path={PATHROUTES.DETAIL} component={<Detail/>} />
       </Routes>
     </div>
   );

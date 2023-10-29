@@ -16,6 +16,16 @@ export const addGame = (videogames) => {
   };
 };
 
+
+
+
+
+
+
+
+
+
+
 // export const filterGames = (gender) => {
 //     return {
 //       type: "FILTER",

@@ -1,6 +1,7 @@
 import style from "./form.module.css";
 import { useState } from "react";
 import Validation from "./Validation";
+import axios from "axios" ; 
 
 const Form = () => {
   const [errors, setErrors] = useState([]);
@@ -11,6 +12,7 @@ const Form = () => {
     image: "",
     date: "",
     rating: "",
+    genres: [],  //porque es un array de obj 
   });
 
   const handleChange = (e) => {
@@ -20,7 +22,14 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(userData);                 //manejar en App este error 
+  
+    axios.post("http://localhost:3005/createdgames", userData)
+      .then(response => {
+        console.log('Datos enviados correctamente:', response.data);
+      })
+      .catch(error => {
+        console.error('Error al enviar los datos:', error);
+      });
   };
 
   return (
@@ -106,8 +115,24 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
+        <div className={style.conteiner}>
+        <label htmlFor="genres">Géneros:</label>
+        <select className={style.select}
+          id="genres"
+          name="genres"
+          multiple
+          value={userData.genres}
+          onChange={handleChange}
+          required
+        >
+          <option value="action">Acción</option>
+          <option value="adventure">Aventura</option>
+          <option value="strategy">Estrategia</option>
+          <option value="rpg">RPG</option>
+        </select>
+      </div>
         <div>
-          <button className={style.button}>Submit</button>
+          <button className={style.button}>SUBMIT</button>
         </div>
       </form>
     </div>
