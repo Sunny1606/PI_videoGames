@@ -4,6 +4,8 @@ import Validation from "./Validation";
 import axios from "axios" ; 
 
 const Form = () => {
+
+  
   const [errors, setErrors] = useState([]);
   const [userData, setUserData] = useState({
     name: "",
@@ -32,6 +34,9 @@ const Form = () => {
       });
   };
 
+ 
+
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -49,13 +54,8 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.e1 ? (          // ! verificar que errores puedo inventarle y agregarlos en validate !!
-          <p>{errors.e1}</p>
-        ) : errors.e2 ? (
-          <p>{errors.e2}</p>
-        ) : (
-          <p>{errors.e3}</p>
-        )}
+        
+       
         <div className={style.conteiner}>
           <label htmlFor="platform">Platform:</label>
           <input
@@ -67,6 +67,8 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
+
+
         <div className={style.conteiner}>
           <label htmlFor="description">Description:</label>
           <br />
@@ -80,6 +82,9 @@ const Form = () => {
             onChange={handleChange}
           ></textarea>
         </div>
+
+
+
         <div className={style.conteiner}>
           <label htmlFor="image"> URL Image:</label>
           <input
@@ -102,6 +107,9 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
+
+
+
         <div className={style.conteiner}>
           <label htmlFor="rating">Rating:</label>
           <input
@@ -115,21 +123,26 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
+
+
+        
         <div className={style.conteiner}>
         <label htmlFor="genres">Géneros:</label>
-        <select className={style.select}
+        <div
           id="genres"
           name="genres"
           multiple
           value={userData.genres}
           onChange={handleChange}
           required
-        >
+        ></div>
+          <select className={style.select}>
           <option value="action">Acción</option>
           <option value="adventure">Aventura</option>
           <option value="strategy">Estrategia</option>
           <option value="rpg">RPG</option>
-        </select>
+          </select>
+        
       </div>
         <div>
           <button className={style.button}>SUBMIT</button>
