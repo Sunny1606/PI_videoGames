@@ -4,13 +4,15 @@ div button:hover {
 
 div input {
   background-color: white;
-  font-size: 15px;
+  font-size: 20px;
   outline: none;
   height: 30px;
-  padding: 1 10px;
-  font-weight: 400;
+  padding: 1 50px;
+  font-weight: 300;
   margin-right: 15px;
-
+  display: inline;
+  align-items: center;
+  justify-content: center;
 }
 
 .search {
@@ -21,7 +23,7 @@ div input {
   cursor: pointer;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   text-decoration: none;
-  margin-right: 15px;
+  margin-right: 300px;
   color: rgb(255, 255, 255);
 
 }

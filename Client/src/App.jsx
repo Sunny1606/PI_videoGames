@@ -7,6 +7,7 @@ import { useState } from "react";
 import Cards from "./components/GameCards/cards";
 import Form from "./components/FormPage/form";
 import Detail from "./components/Detail/detaillGame"
+import Home from "./components/HomePage/homePage";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
      
       <Routes>
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
+        <Route path={PATHROUTES.HOME} element={<Home />} />
         <Route path={PATHROUTES.FORM} element= {<Form/>} />
         <Route
             path={PATHROUTES.HOME}

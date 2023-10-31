@@ -39,9 +39,13 @@ const Form = () => {
 
   return (
     <div>
+    <div className={style.image}></div>
+
       <form onSubmit={handleSubmit}>
         <div>
+
           <h2 className={style.title}>Form Create Game</h2>
+
         </div>
         <div className={style.conteiner}>
           <label htmlFor="name">Name:</label>

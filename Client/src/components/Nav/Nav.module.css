@@ -1,9 +1,8 @@
 .nav {
   display: flex;
   justify-content: flex-end;
-  padding: 15px;
+  padding:  30px;
   margin-bottom: 15px;
-  background-color: #636262;
 }
 
 .links {

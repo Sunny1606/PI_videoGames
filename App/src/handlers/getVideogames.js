@@ -81,7 +81,7 @@ const getGenres = async (req, res) => {
       res.json(mappedGenres);
     } else {
       // Si no se encontraron géneros en la base de datos, busca en la API
-      // const apiResp = await axios.get(URL)
+     
       const apiResp = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
       const apiGenres = apiResp.data.results;
 

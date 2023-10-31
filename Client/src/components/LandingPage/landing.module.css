@@ -4,13 +4,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: rgb(226, 226, 255);
+  color: rgb(255, 255, 255);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 .button {
   display: block;
   margin: 0 auto;
-  background-color: #7433ff;
+  background-color: #c000b0;
   padding: 5px 20px;
   color: rgb(0, 0, 0);
   border: none;
@@ -21,10 +21,10 @@
   text-decoration: none;
 }
 .button:hover {
-  background-color: #925fff;
+  background-color: #880a7d;
 }
 .image {
-  background-image: url("../Image/hd-pc-gaming-wallpaper-scaled.jpg");
+  background-image: url("../../Image/hd-pc-gaming-wallpaper-scaled.jpg");
   background-size: cover;
   background-position: center;
   position: absolute;
