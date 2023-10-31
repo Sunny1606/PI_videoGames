@@ -54,23 +54,4 @@ const Home = () => {
 
 export default Home;
 
-// //
-// <select className={styles.select}>
-// <option value="action">Acción</option>
-// <option value="action">Acción</option>
-// </select>
 
-// <select className={styles.select}>
-// <option value="action">Acción</option>
-// <option value="action">Acción</option>
-// </select>
-
-// <select className={styles.select}>
-// <option value="action">Acción</option>
-// <option value="action">Acción</option>
-// </select>
-
-// <select className={styles.select}>
-// <option value="action">Acción</option>
-// <option value="action">Acción</option>
-// </select>

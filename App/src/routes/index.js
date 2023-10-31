@@ -3,8 +3,8 @@ const {
   getVideogamesById,
   getGameByName,
   getGenres,
-} = require("../handlers/getVideogames");
-const postVideogames = require("../handlers/postVideogames");
+} = require("../handlers/GetControllers/getVideogames");
+const postVideogames = require("../handlers/PostController/postVideogames");
 const axios = require("axios");
 
 

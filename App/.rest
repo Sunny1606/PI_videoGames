@@ -12,6 +12,9 @@ GET names https://api.rawg.io/api/games?search=NAMEGAME
 ##
 
 GET id https://api.rawg.io/api/games?search=IDGAME
+##
+
+platforms  
 
 
 

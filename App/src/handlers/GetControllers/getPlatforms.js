@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { APY_KEY, URL } = process.env;
-const { Database } = require("../db");
+const { Database } = require("../../db");
 const { response } = require("express");
 
 const getPlatforms = async () => {

@@ -1,5 +1,5 @@
-const { Videogame, Genres } = require("../db");
-const router = require("../routes");
+const { Videogame, Genres } = require("../../db");
+const router = require("../../routes");
 const { Op } = require("sequelize");
 const axios = require("axios");
 require('dotenv').config();

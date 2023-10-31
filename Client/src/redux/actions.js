@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export const addGame = (videogames) => {
-  const endpoint = "http://localhost:3005/games";
+export const genres = (videogames) => {
+  const endpoint = "http://localhost:3005/genres";
   return async (dispatch) => {
     try {
       const { data } = await axios.post(endpoint, videogames);
 
       return dispatch({
-        type: "GET_ALL_GAMES",
+        type: "GET_ALL_GENRES",
         payload: data,
       });
     } catch (error) {
@@ -17,7 +17,21 @@ export const addGame = (videogames) => {
 };
 
 
+export const platforms = (videogames) => {
+  const endpoint = "http://localhost:3005/platform";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(endpoint, videogames);
 
+      return dispatch({
+        type: "GET_ALL_GENRES",
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 
 
