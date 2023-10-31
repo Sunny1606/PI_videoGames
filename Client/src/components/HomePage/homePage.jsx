@@ -1,47 +1,68 @@
 import styles from "./home.module.css";
-// import { useState } from "react";
-// import { filterCards, orderCards } from "../../redux/actions";
-// import {useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { filterGenres, orderGenres, filterSource } from "../../redux/actions";
+import { useEffect, useState } from "react";
+
+import { getGenres, getPlatforms } from "../../redux/actions";
 
 const Home = () => {
-  // const [aux, setAux] = useState(false);
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [aux, setAux] = useState(false);
 
-  // // crear las actions de redux e importarlas
-  //   const handleOrder = (e) => {
-  //     dispatch(orderCards(e.target.value));
-  //     setAux(!aux)
-  //   };
+  // Obtén los datos de Genres y Platforms del estado Redux
+  const genres = useSelector((state) => state.genres);
+  const platforms = useSelector((state) => state.platforms);
 
-  //   const handleFilter = (e) => {
-  //     dispatch(filterCards(e.target.value));
-  //   };
+  // Carga los datos de Genres y Platforms al montar el componente
+  useEffect(() => {
+    dispatch(getGenres());
+    dispatch(getPlatforms());
+  }, [dispatch]);
+
+  const handleOrder = (e) => {
+    dispatch(orderGenres(e.target.value));
+    setAux(!aux);
+  };
+
+  const handleFilter = (e) => {
+    dispatch(filterGenres(e.target.value));
+  };
+
+  const handleSourceFilter = (e) => {
+    dispatch(filterSource(e.target.value));
+  };
 
   return (
     <div>
       <div className={styles.image}></div>
       <div>
-        <select className={styles.select}>
+        <select className={styles.select} onChange={handleOrder}>
           <option>Order by Name</option>
           <option>A-Z</option>
           <option>Z-A</option>
         </select>
-        <select className={styles.select}>
+        <select className={styles.select} onChange={handleOrder}>
           <option>Order by Ranking</option>
           <option>Ascendente</option>
           <option>Descendente</option>
         </select>
         <select className={styles.select}>
           <option>Platforms</option>
-          <option>A-Z</option>
-          <option>Z-A</option>
+          {platforms.map((platform) => (
+            <option key={platform.id} value={platform.name}>
+              {platform.name}
+            </option>
+          ))}
         </select>
-        <select className={styles.select}>
+        <select className={styles.select} onChange={handleFilter}>
           <option>Genres</option>
-          <option>A-Z</option>
-          <option>Z-A</option>
+          {genres.map((genre) => (
+            <option key={genre.id} value={genre.name}>
+              {genre.name}
+            </option>
+          ))}
         </select>
-        <select className={styles.select}>
+        <select className={styles.select} onChange={handleSourceFilter}>
           <option>Source</option>
           <option>All</option>
           <option>Created</option>
@@ -53,5 +74,3 @@ const Home = () => {
 };
 
 export default Home;
-
-

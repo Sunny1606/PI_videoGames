@@ -8,8 +8,12 @@ import Cards from "./components/GameCards/cards";
 import Form from "./components/FormPage/form";
 import Detail from "./components/Detail/detaillGame"
 import Home from "./components/HomePage/homePage";
+import {GameList} from "./components/Pagination/pagination";
+
 
 function App() {
+
+  
 
   //cambios del estado
   const [videogames, setVideogames] = useState([]);
@@ -42,6 +46,9 @@ function App() {
     <div>
       {pathname !== "/" && <Nav  onSearch={handleSearch}/>}
      
+   
+    <GameList/>
+
       <Routes>
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
         <Route path={PATHROUTES.HOME} element={<Home />} />
