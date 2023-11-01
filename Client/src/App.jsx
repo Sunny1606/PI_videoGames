@@ -4,7 +4,6 @@ import LandingPage from "./components/LandingPage/landingPage";
 import Nav from "./components/Nav/nav";
 import axios from "axios";
 import { useState } from "react";
-
 import Form from "./components/FormPage/form";
 import Detail from "./components/Detail/detaillGame";
 import Home from "./components/HomePage/homePage";
@@ -35,22 +34,16 @@ function App() {
 
   return (
     <div>
-     
-      
       {pathname !== "/" && <Nav onSearch={handleSearch} />}
 
       <Routes>
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
         <Route path={PATHROUTES.HOME} element={<Home />} />
         <Route path={PATHROUTES.FORM} element={<Form />} />
-        {/* <Route
-            path={PATHROUTES.HOME}
-            element={<Cards videogames={videogames} onClose={hndleOnClose} />}
-          />       */}
         <Route path={PATHROUTES.DETAIL} component={<Detail />} />
       </Routes>
-        
-      {/* <GamesList /> */}
+      
+
     </div>
   );
 }

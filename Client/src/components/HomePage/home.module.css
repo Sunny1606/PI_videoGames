@@ -1,9 +1,7 @@
-.title {
-  color: red;
-}
 
-/* .image {
-  background-image: url("../../Image/176452.alfabetajuega-wallpapers-1-060117.webp");
+
+.image {
+  background-image: url("../../Image/abstrsct-3840-x-2160-abstract-stage-wallpaper-preview.jpg");
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -12,7 +10,7 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-} */
+}
 
 .home {
   background-color: #bea4bc;
@@ -20,27 +18,31 @@
 }
 
 .select {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   border-radius: 5px;
   margin-right: 15px;
+  margin-left: 40px;
   background-color: #61195a;
   color: whitesmoke;
   padding: 10px;
   width: 15%;
   border: none;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
-.button {
+/* .button {
+  
   background-color: #bea4bc;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  margin-right: 15px;
-}
+  margin-inline-start: 15px;
+} */
 
 .links :hover {
   background-color: #900b84;

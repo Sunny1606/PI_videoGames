@@ -1,3 +1,5 @@
+import styles from "./pagination.module.css";
+
 export const Pagination = ({
   gamesForPage,
   currentPage,
@@ -16,23 +18,23 @@ export const Pagination = ({
   const onNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-  const onSpecificPage = (n) => {
-    setCurrentPage(n) 
-  }
+  // const onSpecificPage = (n) => {
+  //   setCurrentPage(n) 
+  // }
 
   return (
     <nav
-      className="pagination is-centered mg-6"
+      className={styles.conteiner}
       role="navigation"
       aria-label="pagination"
     >
-      <a className="pagination-previous" onClick={onPreviusPage}>
+      <button className={styles.previus} onClick={onPreviusPage}>
         Previous
-      </a>
-      <a className="pagination-next" onClick={onNextPage}>
+      </button>
+      <button className={styles.next} onClick={onNextPage}>
         Next page
-      </a>
-      <ul className="pagination-list">
+      </button>
+      {/* <ul className={styles.ul}>
         {pageNumbers.map((noPage) => (
           <li key={noPage}>
             <a
@@ -45,7 +47,7 @@ export const Pagination = ({
             </a>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </nav>
   );
 };

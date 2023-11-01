@@ -1,0 +1,31 @@
+.conteiner{
+    background-color: wheat;
+    margin-bottom: 50px;
+}
+
+
+.previus{
+    background-color: #4a0644;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+    align-items: center;
+    color: wheat;
+    margin-left: 550px;
+}
+
+.next{
+    background-color: #4a0644;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 15px;
+   align-items: center;
+   color: wheat;
+}
+

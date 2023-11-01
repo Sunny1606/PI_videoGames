@@ -2,7 +2,7 @@ import styles from "./home.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { filterGenres, filterSource } from "../../redux/actions";
 import { useEffect, useState } from "react";
-import { GamesList } from "../Pagination/gamesList";
+import { GamesList } from "../Pagination/gameList/gamesList";
 
 
 import { getGenres, getPlatforms } from "../../redux/actions";

@@ -19,6 +19,7 @@
     cursor: pointer;
     overflow: hidden;
     transition: all 400ms ease;
+    background-color:#5e2c59;
 }
 
 .image {

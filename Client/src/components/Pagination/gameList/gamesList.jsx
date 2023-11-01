@@ -1,7 +1,7 @@
-import styles from "../Pagination/gameList.module.css"; 
+import styles from "./gameList.module.css"; 
 
 import { useEffect, useState } from "react";
-import { Pagination } from "./pagination";
+import { Pagination } from "../pagination/pagination";
 
 export const GamesList = () => {
   const [games, setGames] = useState([]);

@@ -1,7 +1,8 @@
 .nav {
   display: flex;
-  justify-content: flex-end;
-  padding:  30px;
+  align-items: center;
+  justify-content: center;
+  padding:  20px;
   margin-bottom: 10px;
 }
 
@@ -22,6 +23,9 @@
   cursor: pointer;
   text-decoration: none;
   margin-right: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .links :hover {
