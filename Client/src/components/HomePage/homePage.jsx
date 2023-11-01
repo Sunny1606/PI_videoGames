@@ -1,7 +1,9 @@
 import styles from "./home.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { filterGenres, orderGenres, filterSource } from "../../redux/actions";
+import { filterGenres, filterSource } from "../../redux/actions";
 import { useEffect, useState } from "react";
+import { GamesList } from "../Pagination/gamesList";
+
 
 import { getGenres, getPlatforms } from "../../redux/actions";
 
@@ -46,11 +48,11 @@ const Home = () => {
           <option>Ascendente</option>
           <option>Descendente</option>
         </select>
-        <select className={styles.select}>
+        <select className={styles.select} onChange={handleFilter}>
           <option>Platforms</option>
           {platforms.map((platform) => (
-            <option key={platform.id} value={platform.name}>
-              {platform.name}
+            <option key={platform.result.id} value={platform.result.name}>
+              {platform.result.name}
             </option>
           ))}
         </select>
@@ -68,6 +70,7 @@ const Home = () => {
           <option>Created</option>
           <option>Not Created</option>
         </select>
+      <GamesList/>
       </div>
     </div>
   );

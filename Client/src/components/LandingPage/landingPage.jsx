@@ -3,6 +3,9 @@ import styles from "./landing.module.css";
 import PATHROUTES from "../Helpers/pathRoutes";
 
 const LandingPage = () => {
+
+
+  
   return (
     <div>
       <div className={styles.image}></div>

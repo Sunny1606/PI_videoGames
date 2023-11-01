@@ -46,23 +46,9 @@ export const filterGenres = (genre) => {
   };
 };
 
-// export const orderGenres = (order) => {
-//   return {
-//     type: "ORDER_GENRES",
-//     payload: order,
-//   };
-// };
-
 export const filterPlatforms = (platform) => {
   return {
     type: "FILTER_PLATFORMS",
     payload: platform,
   };
 };
-
-// export const orderPlatforms = (order) => {
-//   return {
-//     type: "ORDER_PLATFORMS",
-//     payload: order,
-//   };
-// };

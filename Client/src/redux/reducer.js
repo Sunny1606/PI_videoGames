@@ -2,7 +2,7 @@ const InitialState = {
   videogames: [],
   genres: [],
   platforms: [],
-  source: [], 
+  source: [],
 };
 
 const rootReducer = (state = InitialState, { type, payload }) => {
@@ -40,35 +40,11 @@ const rootReducer = (state = InitialState, { type, payload }) => {
     case "FILTER_PLATFORMS":
       // eslint-disable-next-line no-case-declarations
       let filteredPlatforms = state.platforms.filter((platform) => {
-        return platform.name === payload; // Filtra por el nombre de la plataforma
+        return platform.result.name === payload; // Filtra por el nombre de la plataforma
       });
       return {
         ...state,
         filteredPlatforms, // Guarda las plataformas filtradas en un nuevo estado
-      };
-
-    case "ORDER_GENRES":
-      // eslint-disable-next-line no-case-declarations
-      let orderedGenres = [...state.genres].sort((a, b) => {
-        return payload === "A-Z"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      });
-      return {
-        ...state,
-        orderedGenres, // Guarda los géneros ordenados en un nuevo estado
-      };
-
-    case "ORDER_PLATFORMS":
-      // eslint-disable-next-line no-case-declarations
-      let orderedPlatforms = [...state.platforms].sort((a, b) => {
-        return payload === "A-Z"
-          ? a.name.localeCompare(b.name)
-          : b.name.localeCompare(a.name);
-      });
-      return {
-        ...state,
-        orderedPlatforms, // Guarda las plataformas ordenadas en un nuevo estado
       };
 
     default:
