@@ -1,15 +1,13 @@
 import styles from "./home.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { filterGenres, filterSource } from "../../redux/actions";
-import { useEffect, useState } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
+import { filterGenres, filterSource, orderAZ } from "../../redux/actions";
+import { useEffect } from "react";
 import { GamesList } from "../Pagination/gameList/gamesList";
-
-
 import { getGenres, getPlatforms } from "../../redux/actions";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [aux, setAux] = useState(false);
+ 
 
   // Obtén los datos de Genres y Platforms del estado Redux
   const genres = useSelector((state) => state.genres);
@@ -19,11 +17,10 @@ const Home = () => {
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getPlatforms());
-  }, [dispatch]);
+  }, []);
 
-  const handleOrder = (e) => {
-    dispatch(orderGenres(e.target.value));
-    setAux(!aux);
+  const handleOrderAZ = (e) => {
+    dispatch(orderAZ(e.target.value));
   };
 
   const handleFilter = (e) => {
@@ -38,42 +35,55 @@ const Home = () => {
     <div>
       <div className={styles.image}></div>
       <div>
-        <select className={styles.select} onChange={handleOrder}>
+        <select className={styles.select} onChange={handleOrderAZ} key="orderSelect">
           <option>Order by Name</option>
           <option>A-Z</option>
           <option>Z-A</option>
         </select>
-        <select className={styles.select} onChange={handleOrder}>
+        <select className={styles.select} key="orderSelect2" >
           <option>Order by Ranking</option>
           <option>Ascendente</option>
           <option>Descendente</option>
         </select>
         <select className={styles.select} onChange={handleFilter}>
           <option>Platforms</option>
-          {platforms.map((platform) => (
-            <option key={platform.result.id} value={platform.result.name}>
-              {platform.result.name}
-            </option>
-          ))}
+          {platforms.length &&
+            platforms.map((platform) => (
+              <option key={platform.id} value={platform.name}>
+                {platform.name}
+              </option>
+            ))}
         </select>
         <select className={styles.select} onChange={handleFilter}>
           <option>Genres</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.name}>
-              {genre.name}
-            </option>
-          ))}
+          {genres.length &&
+            genres.map((genre) => (
+              <option key={genre.id} value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
         </select>
-        <select className={styles.select} onChange={handleSourceFilter}>
+        <select className={styles.select} onChange={handleSourceFilter} key="orderSelect3">
           <option>Source</option>
           <option>All</option>
           <option>Created</option>
           <option>Not Created</option>
         </select>
-      <GamesList/>
+        <GamesList />
       </div>
     </div>
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    videogames: state.videogames,
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => ({
+//   setFilter: (value) => dispatch({ type: 'SET_FILTER', payload: value }),
+// });
+
+// eslint-disable-next-line react-refresh/only-export-components
+export default connect(mapStateToProps, null )(Home);

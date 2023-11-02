@@ -2,10 +2,10 @@ Send Request
 
 RUTAS A UTILIZAR
 
-GET genres https://api.rawg.io/api/genres?key=95817a7e4a5b4f108f31cffdc2c8d8e1
+GET genres https://api.rawg.io/api/genres?key=23a478361d724c7a94943192431943e9
 ##
 
-GET games https://api.rawg.io/api/games?key=95817a7e4a5b4f108f31cffdc2c8d8e1
+GET games https://api.rawg.io/api/games?key=23a478361d724c7a94943192431943e9
 ##
 
 GET names https://api.rawg.io/api/games?search=NAMEGAME
@@ -14,8 +14,8 @@ GET names https://api.rawg.io/api/games?search=NAMEGAME
 GET id https://api.rawg.io/api/games?search=IDGAME
 ##
 
-platforms  
-
+GET platforms   https://api.rawg.io/api/platforms?key=23a478361d724c7a94943192431943e9
+##
 
 
 

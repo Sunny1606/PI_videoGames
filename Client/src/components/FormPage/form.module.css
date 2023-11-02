@@ -7,17 +7,13 @@
   padding: 10px;
   border-radius: 8px;
   background-color: red;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   margin-left: 330px;
 }
 
 .title {
   color: black;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-    margin-left: 100px;
-    padding: 10px 20px;
+  margin-left: 100px;
+  padding: 10px 20px;
 }
 
 .conteiner {
@@ -25,12 +21,10 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* width: 300px; */
   padding: 25px;
   margin-left: 50px;
   margin-top: 20px;
   border-radius: 8px;
-  font-family: "Times New Roman", Times, serif;
   color: #fff;
   margin-bottom: 20px;
 }
@@ -39,8 +33,7 @@
   padding: 5px;
 }
 
-.image{
-  background-image: url("../../Image/habitacion-oscura-fondo-neon-fondo-azul-morado_910135-173.jpg");
+.image {
   background-size: cover;
   background-position: center;
   position: absolute;

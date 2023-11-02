@@ -1,11 +1,11 @@
 .conteiner{
-    background-color: wheat;
+    /* background-color: wheat; */
     margin-bottom: 50px;
 }
 
 
 .previus{
-    background-color: #4a0644;
+    background-color: #d38ccd;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -18,7 +18,7 @@
 }
 
 .next{
-    background-color: #4a0644;
+    background-color: #d38ccd;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -29,3 +29,7 @@
    color: wheat;
 }
 
+.nav{
+    margin-bottom: 15px ;
+    width: 300px;
+}

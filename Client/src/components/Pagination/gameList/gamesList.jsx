@@ -1,43 +1,48 @@
 import styles from "./gameList.module.css"; 
-
 import { useEffect, useState } from "react";
+import { useSelector , useDispatch } from "react-redux" ; 
 import { Pagination } from "../pagination/pagination";
+import { getGames } from "../../../redux/actions";
 
 export const GamesList = () => {
-  const [games, setGames] = useState([]);
-  const [gamesForPage] = useState(15);
-  const [currentPage, setCurrentPage] = useState(1);
 
-   const gameList = async () => {
-    try {
-      const data = await fetch(
-        "https://api.rawg.io/api/games?key=95817a7e4a5b4f108f31cffdc2c8d8e1"
-      );
-      console.log(data);
-      const gamesData = await data.json();
-      setGames(gamesData.results);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const dispatch = useDispatch();   
+
+  const games = useSelector((state) => state.videogames);
+
+  
+  
+  const totalGames = games?.length;   //aca se va a guardar todos los games de la api 
+  const [gamesForPage] = useState(15);    //cuantos games quiero por pagina 
+  const [currentPage, setCurrentPage] = useState(1);   //para pagina actual que inicia en 1 siempre
+
+  
 
   useEffect(() => {
-    gameList();
+    dispatch(getGames());
   }, []);
 
   const indexOfLastGame = currentPage * gamesForPage;
   const indexOfFirstGame = indexOfLastGame - gamesForPage;
-  const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
+  const currentGames = games?.slice(indexOfFirstGame, indexOfLastGame);
 
   return (
     <>
       <div className={styles.conteiner} >
-        {currentGames.map((game) => (
+      <Pagination
+        gamesForPage={gamesForPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalGames={totalGames}
+      />
+        {currentGames?.map((game) => (
           <div className={styles.card} key={game.id}>
+            <div className={styles.imageBox}>
               <img src={game.background_image} alt={game.name} className={styles.image} />           
+            </div>
             <div className={styles.conteiner2}>
-              <h2 className={styles.info}>{game.name}</h2>
-              <p>Genres: {game.genres.map((genre) => genre.name).join(", ")}</p>
+              <h2>{game.name}</h2>
+              <p>{game.genres.map((genre) => genre.name).join(", ")}</p>
             </div>
           </div>
         ))}
@@ -46,7 +51,7 @@ export const GamesList = () => {
         gamesForPage={gamesForPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        totalGames={games.length}
+        totalGames={totalGames}
       />
     </>
   );

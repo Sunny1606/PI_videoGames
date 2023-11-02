@@ -6,7 +6,7 @@ import axios from "axios" ;
 const Form = () => {
 
   
-  const [errors, setErrors] = useState([]);
+  // const [errors, setErrors] = useState([]);
   const [userData, setUserData] = useState({
     name: "",
     description: "",

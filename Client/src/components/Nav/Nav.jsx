@@ -1,16 +1,15 @@
+// import { useState } from "react";
 import PATHROUTES from "../Helpers/pathRoutes";
 import SearchBar from "../SearchBar/searchBar";
 import styles from "./Nav.module.css";
 import { Link } from "react-router-dom";
-// import Form from "../FormPage/form";
 
-const Nav = () => {
+
+// eslint-disable-next-line react/prop-types
+const Nav = ({onSearch}) => {
   return (
     <div className={styles.nav}>
-      {/* <button onClick={() => onSearch(random)} className={styles.onSearch}>
-        Random //si quiero puedo crear el boton RANDOM
-      </button> */}
-      <SearchBar className={styles.SearchBar} />
+      <SearchBar onSearch={onSearch} className={styles.SearchBar} />
 
       <div className={styles.links}>
         <button className={styles.button}>

@@ -7,6 +7,7 @@ const InitialState = {
 
 const rootReducer = (state = InitialState, { type, payload }) => {
   switch (type) {
+    //case de games
     case "GET_ALL_GAMES":
       return { ...state, videogames: payload };
     case "GET_ALL_GENRES":
@@ -47,9 +48,39 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         filteredPlatforms, // Guarda las plataformas filtradas en un nuevo estado
       };
 
-    default:
-      return state;
-  }
+      case 'ORDENAR_POR_NOMBRE':
+        return {
+          ...state,
+          videogames: state.videogames.sort((a, b) => {
+            if (a.nombre.toLowerCase() < b.nombre.toLowerCase()) {
+              return -1;
+            }
+            if (a.nombre.toLowerCase() > b.nombre.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          }),
+        };
+      default:
+        return state;
+    }
+  //   case "ORDER":
+  //     // eslint-disable-next-line no-case-declarations
+  //     let copy4 = state.videogames.sort((a, b) => {
+  //       if (payload === "A") {
+  //         return (a.name.toLowerCase() > b.name.toLowerCase()) // Ordenar de A-Z
+  //       } else {
+  //         return (b.name.toLowerCase() < a.name.toLowerCase())// Ordenar de Z-A
+  //       }
+  //     })
+  //     return {
+  //       ...state,
+  //       videogames: copy4,
+  //     };
+
+  //   default:
+  //     return state;
+  // }
 };
 
 export default rootReducer;

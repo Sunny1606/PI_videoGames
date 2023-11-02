@@ -1,9 +1,13 @@
 import styles from "./pagination.module.css";
 
 export const Pagination = ({
+  // eslint-disable-next-line react/prop-types
   gamesForPage,
+  // eslint-disable-next-line react/prop-types
   currentPage,
+  // eslint-disable-next-line react/prop-types
   setCurrentPage,
+  // eslint-disable-next-line react/prop-types
   totalGames,
 }) => {
   const pageNumbers = [];
@@ -18,36 +22,43 @@ export const Pagination = ({
   const onNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
-  // const onSpecificPage = (n) => {
-  //   setCurrentPage(n) 
-  // }
+  const onSpecificPage = (n) => {
+    setCurrentPage(n);
+  };
 
   return (
-    <nav
-      className={styles.conteiner}
-      role="navigation"
-      aria-label="pagination"
-    >
-      <button className={styles.previus} onClick={onPreviusPage}>
+    <div>
+      <button
+        className={`pagination-previus ${
+          currentPage === 1 ? "is-disabled" : ""
+        }`}
+        onClick={onPreviusPage}
+      >
         Previous
       </button>
-      <button className={styles.next} onClick={onNextPage}>
+      <button
+        className={`pagination-next ${
+          currentPage >= pageNumbers.length ? "is-disabled" : ""
+        }`}
+        onClick={onNextPage}
+      >
         Next page
       </button>
-      {/* <ul className={styles.ul}>
+      <div className={styles.numbers}>
         {pageNumbers.map((noPage) => (
-          <li key={noPage}>
-            <a
+          <div key={noPage}>
+            <button
               className={`"pagination-link" ${
                 noPage === currentPage ? "is-current" : ""
               }}`}
               onClick={() => onSpecificPage(noPage)}
             >
               {noPage}
-            </a>
-          </li>
+            </button>
+          </div>
         ))}
-      </ul> */}
-    </nav>
+        
+      </div>
+    </div>
   );
 };

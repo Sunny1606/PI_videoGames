@@ -1,33 +1,36 @@
-import { useState } from "react";
 import styles from "./searchBar.module.css";
+import { useState } from "react";
 
-const SearchBar = ({ onSearch }) => {
-  const [name, setName] = useState('');
+// eslint-disable-next-line react/prop-types
+export default function SearchBar({ onSearch }) {
+
+  let [aux, setAux] = useState('');
+  const [name, setName] = useState("");    // Cambiamos 'id' a 'name'
+
 
   const handleChange = (event) => {
     setName(event.target.value);
   };
 
+  function handleSearch(name)  {
+    setAux(name)
+    if (name !== aux) {
+      onSearch(name); // Llama a la función de búsqueda con el nombre
+    }
+  }
+
   return (
-    <div>
+    <div className={styles.searchBar}>
       <input
         className={styles.input}
-        type="search"
+        type="text"
+        placeholder="Search here..."
         onChange={handleChange}
         value={name}
       />
-      <button
-        onClick={() => {
-          if (name !== aux) {
-            onSearch(name);
-          }
-        }}
-        className={styles.search}
-      >
+      <button onClick={() => handleSearch(name)} className={styles.search}>
         SEARCH
       </button>
     </div>
   );
-};
-
-export default SearchBar;
+}
