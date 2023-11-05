@@ -52,10 +52,10 @@ export function getDetail(id) {
   };
 }
 
-export function getByName() {
+export function getByName(name) {
   return async function (dispatch) {
     try {
-      const response = await axios.get('/names');
+      const response = await axios.get(`/games?name=${name}`);
       return dispatch({
         type: SEARCH_BY_NAME,
         payload: response.data,
