@@ -3,14 +3,13 @@ const { Op } = require("sequelize");
 const axios = require("axios");
 require("dotenv").config();
 
-
 const API_KEY = process.env.RAWG_API_KEY;
 const { Videogame, Genres } = require("../../db");
 
 //100 juegos desde la API
 const getApiInfo = async () => {
   const apiGamesInfo = 5;
-  
+
   const games = [];
 
   for (let i = 1; i <= apiGamesInfo; i++) {
@@ -39,13 +38,14 @@ const getApiInfo = async () => {
 const getDBInfo = async () => {
   return await Videogame.findAll({
     include: {
-      model: Genre,
+      model: Genres,
       attributes: ["name"],
     },
   });
 };
 
-//busco tanto en la api como en db 
+//busco tanto en la api como en db
+//FUNCION FINAL
 const getAllInfo = async () => {
   const apiInfo = await getApiInfo();
   let bdInfo = await getDBInfo();
@@ -69,13 +69,10 @@ const getAllInfo = async () => {
   return infoTotal;
 };
 
-
-
 //--------------------------------------------
 
-
-
-
+//desde la api por ID
+// FUNCION FINAL
 const getVideogamesById = async (req, res) => {
   const { id } = req.params;
 
@@ -129,24 +126,8 @@ const getVideogamesById = async (req, res) => {
   return res.status(200).send(foundGame);
 };
 
-//desde la API
-const getGameByName = async (req,res) => {
-  let { name } = req.query;
+//desde la API por nombre
 
-  try {
-    if (name) {
-      const infoByName = await getInfoByName(name);
-      res.status(200).send(infoByName);
-    } else {
-      const allData = await getAllInfo();
-      res.status(200).send(allData);
-    }
-  } catch (e) {
-    res.status(404).send("Juego no encontrado");
-  }
-};
-
-//desde la api por ID 
 const getApiByName = async (name) => {
   const resAxios = await axios.get(`https://api.rawg.io/api/games`, {
     params: { key: API_KEY, search: name },
@@ -166,13 +147,13 @@ const getApiByName = async (name) => {
   });
   return response;
 };
-//desde la base de datos
+//desde la base de datos by name
 const getDbByName = async (name) => {
-  const DBInfo = await getDBInfo();
-  const filtByName = await DBInfo.filter((games) =>
+  const DB = await getDB();
+  const ByName = await DB.filter((games) =>
     games.name.toLowerCase().includes(name.toLowerCase())
   );
-  return filtByName;
+  return ByName;
 };
 
 // busco tanto en API como en DB
@@ -183,6 +164,23 @@ const getInfoByName = async (name) => {
   return infoNameTotal;
 };
 
+
+//FUNCION FINAL 
+const getGameByName = async (req, res) => {
+  let { name } = req.query;
+
+  try {
+    if (name) {
+      const infoByName = await getInfoByName(name);
+      res.status(200).send(infoByName);
+    } else {
+      const allData = await getAllInfo();
+      res.status(200).send(allData);
+    }
+  } catch (e) {
+    res.status(404).send("Juego no encontrado");
+  }
+};
 
 module.exports = {
   getVideogamesById,

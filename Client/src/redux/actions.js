@@ -2,12 +2,12 @@ import axios from "axios";
 
 export const GET_GAMES = "GET_GAMES";   //muestra todos los gams
 export const GET_GENRES = "GET_GENRES";   // muestra todos los generos 
-export const SEARCH_BY_NAME = "SEARCH_BY_NAME"     //searchbar ??? 
+export const SEARCH_BY_NAME = "SEARCH_BY_NAME"     
 export const ORDER_BY_NAME = "ORDER_BY_NAME";   // alfabrticamente 
 export const FILTER_BY_RATING = "FILTER_BY_RATING";     //filtro de rating 
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE";  //filtro genero 
 export const FILTER_CREATED = "FILTER_CREATED";   //base de datos filtro 
-export const SEARCH_BY_ID = "SEARCH_BY_ID";   //detail  
+export const SEARCH_BY_ID = "SEARCH_BY_ID";    
 
 
 
@@ -17,8 +17,8 @@ export function getGames() {
     return dispatch({
       type: GET_GAMES,
       payload: response.data,
-    });
-  };
+    })
+  }
 }
 
 
@@ -52,17 +52,16 @@ export function getDetail(id) {
   };
 }
 
-export function getByName(name) {
+export function getByName() {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`/name?name=${name}`);
+      const response = await axios.get('/names');
       return dispatch({
         type: SEARCH_BY_NAME,
         payload: response.data,
       });
     } catch (error) {
       console.log(error);
-      console.log("no llega el nombre flaquito");
     }
   };
 }

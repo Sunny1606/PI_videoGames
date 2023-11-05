@@ -3,11 +3,10 @@ const router = require("express").Router();
 const {
   getVideogamesById,
   getGameByName,
-  getGenres,
   getAllInfo,
 } = require("../handlers/GetControllers/getVideogames");
 const postVideogames = require("../handlers/PostController/postVideogames");
-const axios = require("axios");
+
 
 //obtiene un array de todos los videogames
 // const URL = "https://api.rawg.io/api/";
@@ -38,11 +37,11 @@ const axios = require("axios");
 //     res.status(500).send("Hubo un error al obtener los videojuegos.");
 //   }
 // });
-router.get("/" , getAllInfo); 
+// router.get("/games" , getAllInfo); 
+
+router.get("/name" , getGameByName);
 
 router.get("/:id", getVideogamesById); // BY ID
-
-router.get("/", getGameByName);   //BY NAMES
 
 router.post("/createdgames", postVideogames); //CREA JUEGOS
 

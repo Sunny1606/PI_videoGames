@@ -10,27 +10,30 @@ import {
 import { useEffect, useState } from "react";
 import Card from "../Card/card";
 import SearchBar from "../SearchBar/searchBar";
-
+import Pagination from "../Pagination/pagination"; 
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const fullGames = useSelector((state) => state.videogames);
+  const fullgames = useSelector((state) => state.videogames);   //PROBAR SINO VIDEOGAMES
+  // eslint-disable-next-line no-unused-vars
   const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [gamesPerPage, setGamesPerPage] = useState(15);
   const indexOfLastGame = currentPage * gamesPerPage; //15
   const indexOfFirstGame = indexOfLastGame - gamesPerPage; // 0
 
-  const currentGames = fullGames.slice(indexOfFirstGame, indexOfLastGame);
+  const currentGames = fullgames.slice(indexOfFirstGame, indexOfLastGame);
 
-  const Pagination = (pageNumber) => {
+  const handlePagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
   // Carga los datos de Games al montar el componente
   useEffect(() => {
     dispatch(getGames());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // function handleClick(e) {
@@ -61,14 +64,14 @@ const Home = () => {
 
   return (
     <div>
-       <Pagination
-          gamesPerPage={gamesPerPage}
-          fullGames={fullGames.length}
-          paginado={Pagination}
-        />
-         <div className="search">
-          <SearchBar setCurrentPage={setCurrentPage} />
-        </div>
+      <Pagination
+        gamesPerPage={gamesPerPage}
+        fullGames={fullgames.length}
+        paginado={handlePagination}
+      />
+      <div className={styles.SearchBar}>
+        <SearchBar setCurrentPage={setCurrentPage} />
+      </div>
       <div className={styles.image}></div>
       <div>
         <select className={styles.select} onChange={handleName}>
@@ -82,7 +85,10 @@ const Home = () => {
           <option>Descendente</option>
         </select>
 
-        <select className={styles.genresConteiner} onChange={handleFilterByGenres}>
+        <select
+          className={styles.genresConteiner}
+          onChange={handleFilterByGenres}
+        >
           <option>Genres</option>
           <option value="Action">Action</option>
           <option value="Indie">Indie</option>
@@ -104,22 +110,20 @@ const Home = () => {
           <option value="Educational">Educational</option>
           <option value="Card">Card</option>
         </select>
-        <select className={styles.SourceConteiner} onChange={handleFilterCreated}>
+        <select
+          className={styles.SourceConteiner}
+          onChange={handleFilterCreated}
+        >
           <option>Source</option>
           <option>All</option>
           <option>Created</option>
           <option>ApiGames</option>
         </select>
+        <button>CREATE GAME</button>
+
         <div className={styles.card}>
           {currentGames.length === 0 ? (
-            <div>
-              <h2 className="h2">CARGANDO VIDEOJUEGOS...</h2>
-              <img
-                src="https://i.imgur.com/p9dsQtE.gif"
-                alt="Loading..."
-                className="loaderHome"
-              />
-            </div>
+            <div></div>
           ) : (
             currentGames.map((card) => {
               return (
@@ -143,7 +147,7 @@ const Home = () => {
         </div>
         <Pagination
           gamesPerPage={gamesPerPage}
-          fullGames={fullGames.length}
+          fullGames={fullgames.length}
           paginado={Pagination}
         />
       </div>

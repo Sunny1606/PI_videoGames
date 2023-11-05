@@ -6,7 +6,7 @@ const { Op } = require("sequelize");
 
 const postVideogames = async (req, res) => {
   try {
-    const { name, image, description, date, rating , platform} = req.body;
+    const { name, image, description, released, rating , platform} = req.body;
 
     const existingGame = await Videogame.findOne({
       where: {
@@ -23,7 +23,7 @@ const postVideogames = async (req, res) => {
       name,
       image,
       description,
-      date,
+      released,
       rating,
       platform
     });

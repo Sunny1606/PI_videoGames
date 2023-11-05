@@ -22,7 +22,7 @@ export default function SearchBar({ setCurrentPage }) {
 
   return (
     <form>
-      <div className={styles.searchBar}>
+      <div className={styles.search}>
         <input
           className={styles.input}
           id="in"
