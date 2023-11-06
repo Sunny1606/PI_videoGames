@@ -21,7 +21,7 @@ export default function SearchBar({ setCurrentPage }) {
   }
 
   return (
-    <form>
+    
       <div className={styles.search}>
         <input
           className={styles.input}
@@ -40,6 +40,6 @@ export default function SearchBar({ setCurrentPage }) {
           SEARCH
         </button>
       </div>
-    </form>
+    
   );
 }

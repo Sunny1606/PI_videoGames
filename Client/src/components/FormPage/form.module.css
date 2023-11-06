@@ -1,45 +1,8 @@
-.button {
-  color: whitesmoke;
-  text-align: center;
-  display: flex;
-  margin-bottom: 50px;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  background-color: red;
-  margin-left: 330px;
+.conteiner{
+  background-color: aqua;
 }
 
-.title {
-  color: black;
-  margin-left: 100px;
-  padding: 10px 20px;
-}
 
-.conteiner {
-  background-color: #5a1d55;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 25px;
-  margin-left: 50px;
-  margin-top: 20px;
-  border-radius: 8px;
-  color: #fff;
-  margin-bottom: 20px;
-}
-
-.select {
-  padding: 5px;
-}
-
-.image {
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+.titleH1{
+  color: azure;
 }

@@ -1,13 +1,16 @@
 const axios = require("axios");
-require("dotenv").config();
+const { Router } = require("express");
 
-const API_KEY = process.env.RAWG_API_KEY;
-const { Videogame, Genres } = require("../../db");
+const { API_KEY } = process.env;
+const { Videogame, Genres } = require("../db.js");
 
-//100 juegos desde la API
+const router = Router();
+
+//-------------TODOS LOS VIDEOJUEGOS--------------------
+//----------Logica para traer Info de API --------------
 const getApiInfo = async () => {
   const apiGamesInfo = 5;
-
+  // trae los 100 videoGames (20 por cada llamado)
   const games = [];
 
   for (let i = 1; i <= apiGamesInfo; i++) {
@@ -32,18 +35,20 @@ const getApiInfo = async () => {
   return games;
 };
 
-//desde la base de datos
+//----------Logica para traer Info de Data Base --------------
 const getDBInfo = async () => {
   return await Videogame.findAll({
     include: {
       model: Genres,
       attributes: ["name"],
+      // through: {
+      //   attributes: [],
+      // },
     },
   });
 };
 
-//busco tanto en la api como en db
-//FUNCION FINAL
+//Acoplo toda la info, API + DB
 const getAllInfo = async () => {
   const apiInfo = await getApiInfo();
   let bdInfo = await getDBInfo();
@@ -64,17 +69,74 @@ const getAllInfo = async () => {
 
   const infoTotal = bdInfo.concat(apiInfo);
 
+  // console.log(bdInfo);
   return infoTotal;
 };
 
-//-------------------------------------------------------------
+//--------------------------------------------------
+//--------------------------------------------------
 
-//desde la api por ID
-// FUNCION FINAL
-const getVideogamesById = async (req, res) => {
+//-------------VIDEOJUEGOS POR NOMBRE--------------
+//------- Busco el Game en la API por NAME---------
+const getApiByName = async (name) => {
+  const resAxios = await axios.get(`https://api.rawg.io/api/games`, {
+    params: { key: API_KEY, search: name },
+  });
+  const results = resAxios.data.results;
+
+  let response = results.map((result) => {
+    return {
+      id: result.id,
+      name: result.name,
+      released: result.released,
+      image: result.background_image,
+      rating: result.rating,
+      platforms: result.platforms.map((e) => e.platform.name),
+      genres: result.genres.map((e) => e.name),
+    };
+  });
+  return response;
+};
+
+// Busco el Game en mi base de Datos por NAME
+const getDbByName = async (name) => {
+  const DBInfo = await getDBInfo();
+  const filtByName = await DBInfo.filter((games) =>
+    games.name.toLowerCase().includes(name.toLowerCase())
+  );
+  return filtByName;
+};
+
+//Concateno y busco tanto en API como en DB
+const getInfoByName = async (name) => {
+  const apiByName = await getApiByName(name);
+  const DbByName = await getDbByName(name);
+  const infoNameTotal = DbByName.concat(apiByName);
+  return infoNameTotal;
+};
+//----------------------------------------------------------
+//----------------------------------------------------------
+
+//    Hago la ruta GET: '/videogames' y '/videogames?name={game}'   //
+router.get("/", async (req, res) => {
+  let { name } = req.query;
+  try {
+    if (name) {
+      const infoByName = await getInfoByName(name);
+      res.status(200).send(infoByName);
+    } else {
+      const allData = await getAllInfo();
+      res.status(200).send(allData);
+    }
+  } catch (e) {
+    res.status(404).send("Juego no encontrado");
+  }
+});
+
+// ------------Hago la ruta GET: '/videogames/:id'
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  console.log("tukis");
   if (id.length < 36) {
     try {
       var { data } = await axios.get(`https://api.rawg.io/api/games/${id}`, {
@@ -123,49 +185,6 @@ const getVideogamesById = async (req, res) => {
   };
 
   return res.status(200).send(foundGame);
-};
+});
 
-//desde la API por nombre
-
-const getApiByName = async (name) => {
-  const resAxios = await axios.get(`https://api.rawg.io/api/games`, {
-    params: { key: API_KEY, search: name },
-  });
-
-  const results = resAxios.data.results;
-
-  let response = results.map((result) => {
-    return {
-      id: result.id,
-      name: result.name,
-      released: result.released,
-      image: result.background_image,
-      rating: result.rating,
-      platforms: result.platforms.map((e) => e.platform.name),
-      genres: result.genres.map((e) => e.name),
-    };
-  });
-  return response;
-};
-//desde la base de datos by name
-const getDbByName = async (name) => {
-  const DBInfo = await getDBInfo();
-  const filtByName = await DBInfo.filter((games) =>
-    games.name.toLowerCase().includes(name.toLowerCase())
-  );
-  return filtByName;
-};
-
-// busco tanto en API como en DB
-const getInfoByName = async (name) => {
-  const apiByName = await getApiByName(name);
-  const DbByName = await getDbByName(name);
-  const infoNameTotal = DbByName.concat(apiByName);
-  return infoNameTotal;
-};
-
-module.exports = {
-  getVideogamesById,
-  getAllInfo,
-  getInfoByName,
-};
+module.exports = router;

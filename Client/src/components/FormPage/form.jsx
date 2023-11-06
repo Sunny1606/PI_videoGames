@@ -1,157 +1,230 @@
 import style from "./form.module.css";
-import { useState } from "react";
-import Validation from "./Validation";
-import axios from "axios" ; 
+import { useEffect, useState } from "react";
+import { postGame, getGenres } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import validation from "./Validation";
 
 const Form = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  
-  // const [errors, setErrors] = useState([]);
+  const genres = useSelector((state) => state.genres);
+  const videogames = useSelector((state) => state.games);
+
+
+  //estado local de errores y inputs objetos
+  const [errors, setErrors] = useState([]);
   const [userData, setUserData] = useState({
     name: "",
     description: "",
-    platform: "",
     image: "",
-    date: "",
+    released: "",
     rating: "",
-    genres: [],  //porque es un array de obj 
+    platforms: [],
+    genres: [],
   });
 
-  const handleChange = (e) => {
-    setErrors(Validation({ ...userData, [e.target.name]: e.target.value }));
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+  const getPlatforms = function () {
+    let aux = videogames;
+    let aux2 = aux.map((e) => e.platforms).flat(5);
+    let aux3 = new Set(aux2);
+    let plat = [...aux3];
+    return plat;
   };
+  const platform = getPlatforms();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    axios.post("http://localhost:3005/createdgames", userData)
-      .then(response => {
-        console.log('Datos enviados correctamente:', response.data);
+  //-----------------------------------
+
+  function handleChange(e) {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+
+    setErrors(
+      validation({
+        ...userData,
+        [e.target.name]: e.target.value,
       })
-      .catch(error => {
-        console.error('Error al enviar los datos:', error);
-      });
-  };
+    );
+  }
 
- 
+  function handleGenre(e) {
+    setUserData({
+      ...userData,
+      genres: [...userData.genres, e.target.value],
+    });
+  }
+
+  function handlePlataforms(e) {
+    setUserData({
+      ...userData,
+      platforms: [...userData.platforms, e.target.value],
+    });
+  }
+
+
+  function handleSubmit(e) {
+    if (
+      userData.name.length &&
+      userData.description.length &&
+      userData.platforms.length
+      // !input.rating > 5 &&
+      // !input.rating < 1
+    ) {
+      e.preventDefault();
+      dispatch(postGame(userData));
+      alert("Videojuego Creado!!");
+      setUserData({
+        name: "",
+        description: "",
+        image: "",
+        released: "",
+        rating: "",
+        platforms: [],
+        genres: [],
+      });
+      navigate("/home");
+    } else {
+      e.preventDefault();
+      alert("Formulario incompleto");
+    }
+  }
+
+
+  function handleDelete(el) {
+    setUserData({
+      ...userData,
+      genres: userData.genres.filter((gen) => gen !== el),
+      platforms: userData.platforms.filter((plat) => plat !== el),
+    });
+  }
+
+  useEffect(() => {
+    dispatch(getGenres());
+  }, [dispatch]);
 
 
   return (
-    <div>
-    <div className={style.image}></div>
-
-      <form onSubmit={handleSubmit}>
+    <div className={style.conteiner}>
+      <h1 className={style.titleH1}>Create New Videogame</h1>
+      <form onSubmit={(e) => handleSubmit(e)} className={style.formulario}>
         <div>
-
-          <h2 className={style.title}>Form Create Game</h2>
-
+          <div>
+            <div className="form_inputs">
+              <label>Name </label>
+              <input
+                className="inputs"
+                type="text"
+                value={userData.name}
+                name="name"
+                onChange={handleChange}
+              />
+              {errors.name && <p className="errorcito">{errors.name}</p>}
+            </div>
+            <div className="form_inputs">
+              <label>Description </label>
+              <input
+                className="inputs"
+                type="text"
+                value={userData.description}
+                name="description"
+                onChange={handleChange}
+              />
+              {errors.description && (
+                <p className="errorcito">{errors.description}</p>
+              )}
+            </div>
+            <div className="form_inputs">
+              <label>Image </label>
+              <input
+                className="inputs"
+                type="text"
+                value={userData.image}
+                name="image"
+                onChange={handleChange}
+              />
+              {errors.img && <p className="errorcito">{errors.img}</p>}
+            </div>
+            <div className="form_inputs">
+              <label>Release Date </label>
+              <input
+                className="inputs"
+                type="date"
+                value={userData.released}
+                name="released"
+                onChange={handleChange}
+              />
+              {errors.release && <p className="errorcito">{errors.release}</p>}
+            </div>
+            <div className="form_inputs">
+              <label>Rating </label>
+              <input
+                className="inputs"
+                type="number"
+                value={userData.rating}
+                name="rating"
+                onChange={handleChange}
+              />
+              {errors.rating && <p className="errorcito">{errors.rating}</p>}
+            </div>
+          </div>
+          <div>
+            <div className="custom-select">
+              <select onChange={handleGenre} className="select-css">
+                {genres.map((e) => (
+                  <option key={e.name} value={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <li>{userData.genres.map((el) => el).join(" - ")}</li>
+            <div className="custom-select">
+              <select onChange={handlePlataforms} className="select-css">
+                {platform.map((e) => (
+                  <option key={e} value={e}>
+                    {e}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <li>{userData.platforms.map((el) => el).join(" - ")}</li>
+          </div>
         </div>
-        <div className={style.conteiner}>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            value={userData.name}
-            onChange={handleChange}
-          />
-        </div>
-        
-       
-        <div className={style.conteiner}>
-          <label htmlFor="platform">Platform:</label>
-          <input
-            type="text"
-            id="platform"
-            name="platform"
-            required
-            value={userData.platform}
-            onChange={handleChange}
-          />
-        </div>
-
-
-        <div className={style.conteiner}>
-          <label htmlFor="description">Description:</label>
-          <br />
-          <textarea
-            id="description"
-            name="description"
-            rows="4"
-            cols="50"
-            required
-            value={userData.description}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-
-
-
-        <div className={style.conteiner}>
-          <label htmlFor="image"> URL Image:</label>
-          <input
-            type="url"
-            id="image"
-            name="image"
-            required
-            value={userData.image}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={style.conteiner}>
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            required
-            value={userData.date}
-            onChange={handleChange}
-          />
-        </div>
-
-
-
-        <div className={style.conteiner}>
-          <label htmlFor="rating">Rating:</label>
-          <input
-            type="number"
-            id="rating"
-            name="rating"
-            min="1"
-            max="10"
-            required
-            value={userData.rating}
-            onChange={handleChange}
-          />
-        </div>
-
-
-        
-        <div className={style.conteiner}>
-        <label htmlFor="genres">Géneros:</label>
-        <div
-          id="genres"
-          name="genres"
-          multiple
-          value={userData.genres}
-          onChange={handleChange}
-          required
-        ></div>
-          <select className={style.select}>
-          <option value="action">Acción</option>
-          <option value="adventure">Aventura</option>
-          <option value="strategy">Estrategia</option>
-          <option value="rpg">RPG</option>
-          </select>
-        
-      </div>
-        <div>
-          <button className={style.button}>SUBMIT</button>
+        <div id="divButtons">
+          <button type="submit" className="add_button">
+            Create
+          </button>
+          <Link to="/home">
+            <button className="add_button">Back</button>
+          </Link>
         </div>
       </form>
+      <br />
+      <br />
+      <div className="conteiner remove">
+        <h2>Remove Platforms:</h2>
+        {userData.platforms.map((el) => (
+          <div className="cardRemove" key={el}>
+            <p> {el}</p>
+            <button className="delete" onClick={() => handleDelete(el)}>
+              X
+            </button>
+          </div>
+        ))}
+        <h2>Remove Genres:</h2>
+
+        {userData.genres.map((el) => (
+          <div className="cardRemove" key={el}>
+            <p>{el}</p>
+            <button className="delete" onClick={() => handleDelete(el)}>
+              X
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

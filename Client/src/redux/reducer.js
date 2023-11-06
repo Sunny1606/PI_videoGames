@@ -1,17 +1,18 @@
 import {
   GET_GAMES,
   GET_GENRES,
+  POST_GAMES,
   ORDER_BY_NAME,
   FILTER_BY_GENRE,
   FILTER_BY_RATING,
   SEARCH_BY_NAME,
   SEARCH_BY_ID,
   FILTER_CREATED,
-  //VERIFICAR POST GAMES   
+   
 } from "./actions";
 
 const InitialState = {
-  fullgames: [],
+  fullGames: [],
   videogames: [],
   genres: [],
   detail: [],
@@ -24,7 +25,7 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       return {
         ...state,
         videogames: payload,
-        fullgames: payload,
+        fullGames: payload,
       };
     case GET_GENRES:
       return {
@@ -38,7 +39,7 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       };
     case FILTER_BY_GENRE:
       // eslint-disable-next-line no-case-declarations
-      const todosVideogames = state.fullgames;
+      const todosVideogames = state.fullGames;
       // eslint-disable-next-line no-case-declarations
       const filteredGen = todosVideogames.filter((e) =>
         e.genres.includes(payload)
@@ -105,7 +106,7 @@ const rootReducer = (state = InitialState, { type, payload }) => {
 
     case FILTER_CREATED:
       // eslint-disable-next-line no-case-declarations
-      const allGames = state.fullgames;
+      const allGames = state.fullGames;
 
       // eslint-disable-next-line no-case-declarations
       const createdFilter =
@@ -123,6 +124,10 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         detail: payload,
       };
 
+      case POST_GAMES:
+        return {
+          ...state,
+        };
     default:
       return state;
   }

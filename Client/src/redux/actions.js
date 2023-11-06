@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_GAMES = "GET_GAMES";   //muestra todos los games
 export const GET_GENRES = "GET_GENRES";   // muestra todos los generos 
+export const POST_GAMES = "POST_GAMES";    
 export const SEARCH_BY_NAME = "SEARCH_BY_NAME"     
 export const ORDER_BY_NAME = "ORDER_BY_NAME";   // alfabrticamente 
 export const FILTER_BY_RATING = "FILTER_BY_RATING";     //filtro de rating 
@@ -13,12 +14,12 @@ export const SEARCH_BY_ID = "SEARCH_BY_ID";
 
 export function getGames() {
   return async function (dispatch) {
-    let response = await axios.get("/games");
+    let response = await axios.get("/videogames");
     return dispatch({
       type: GET_GAMES,
       payload: response.data,
-    })
-  }
+    });
+  };
 }
 
 
@@ -93,6 +94,14 @@ export function filterCreated(payload) {
   return {
     type: FILTER_CREATED,
     payload,
+  };
+}
+
+export function postGame(payload) {
+  // eslint-disable-next-line no-unused-vars
+  return async function (dispatch) {
+    const response = await axios.post("/videogame", payload);
+    return response;
   };
 }
 
