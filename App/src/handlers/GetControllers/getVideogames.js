@@ -1,5 +1,3 @@
-const router = require("../../routes");
-const { Op } = require("sequelize");
 const axios = require("axios");
 require("dotenv").config();
 
@@ -69,13 +67,14 @@ const getAllInfo = async () => {
   return infoTotal;
 };
 
-//--------------------------------------------
+//-------------------------------------------------------------
 
 //desde la api por ID
 // FUNCION FINAL
 const getVideogamesById = async (req, res) => {
   const { id } = req.params;
 
+  console.log("tukis");
   if (id.length < 36) {
     try {
       var { data } = await axios.get(`https://api.rawg.io/api/games/${id}`, {
@@ -132,6 +131,7 @@ const getApiByName = async (name) => {
   const resAxios = await axios.get(`https://api.rawg.io/api/games`, {
     params: { key: API_KEY, search: name },
   });
+
   const results = resAxios.data.results;
 
   let response = results.map((result) => {
@@ -149,11 +149,11 @@ const getApiByName = async (name) => {
 };
 //desde la base de datos by name
 const getDbByName = async (name) => {
-  const DB = await getDB();
-  const ByName = await DB.filter((games) =>
+  const DBInfo = await getDBInfo();
+  const filtByName = await DBInfo.filter((games) =>
     games.name.toLowerCase().includes(name.toLowerCase())
   );
-  return ByName;
+  return filtByName;
 };
 
 // busco tanto en API como en DB
@@ -164,26 +164,8 @@ const getInfoByName = async (name) => {
   return infoNameTotal;
 };
 
-
-//FUNCION FINAL 
-const getGameByName = async (req, res) => {
-  let { name } = req.query;
-
-  try {
-    if (name) {
-      const infoByName = await getInfoByName(name);
-      res.status(200).send(infoByName);
-    } else {
-      const allData = await getAllInfo();
-      res.status(200).send(allData);
-    }
-  } catch (e) {
-    res.status(404).send("Juego no encontrado");
-  }
-};
-
 module.exports = {
   getVideogamesById,
-  getGameByName,
   getAllInfo,
+  getInfoByName,
 };

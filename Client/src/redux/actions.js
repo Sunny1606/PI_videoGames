@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GET_GAMES = "GET_GAMES";   //muestra todos los gams
+export const GET_GAMES = "GET_GAMES";   //muestra todos los games
 export const GET_GENRES = "GET_GENRES";   // muestra todos los generos 
 export const SEARCH_BY_NAME = "SEARCH_BY_NAME"     
 export const ORDER_BY_NAME = "ORDER_BY_NAME";   // alfabrticamente 
@@ -33,9 +33,11 @@ export function getGenres() {
 }
 
 export function getDetail(id) {
+
   if (id) {
     return async function (dispatch) {
       try {
+     
         const response = await axios.get(`/games/${id}`);
         return dispatch({
           type: SEARCH_BY_ID,

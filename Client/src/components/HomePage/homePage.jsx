@@ -10,12 +10,12 @@ import {
 import { useEffect, useState } from "react";
 import Card from "../Card/card";
 import SearchBar from "../SearchBar/searchBar";
-import Pagination from "../Pagination/pagination"; 
+import Pagination from "../Pagination/pagination";
 
 const Home = () => {
   const dispatch = useDispatch();
 
-  const fullgames = useSelector((state) => state.videogames);   //PROBAR SINO VIDEOGAMES
+  const fullgames = useSelector((state) => state.videogames); //PROBAR SINO VIDEOGAMES
   // eslint-disable-next-line no-unused-vars
   const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,8 +33,8 @@ const Home = () => {
   // Carga los datos de Games al montar el componente
   useEffect(() => {
     dispatch(getGames());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   // function handleClick(e) {
   //   e.preventDefault();
@@ -110,33 +110,35 @@ const Home = () => {
           <option value="Educational">Educational</option>
           <option value="Card">Card</option>
         </select>
-        <select
-          className={styles.SourceConteiner}
-          onChange={handleFilterCreated}
-        >
-          <option>Source</option>
-          <option>All</option>
-          <option>Created</option>
-          <option>ApiGames</option>
-        </select>
-        <button>CREATE GAME</button>
+        <Pagination
+          gamesPerPage={gamesPerPage}
+          fullGames={fullgames.length}
+          paginado={handlePagination}
+        />
 
-        <div className={styles.card}>
+        <div className="cards">
           {currentGames.length === 0 ? (
-            <div></div>
+            <div>
+              <h2 className="h2">CARGANDO VIDEOJUEGOS...</h2>
+              <img
+                src="https://i.imgur.com/p9dsQtE.gif"
+                alt="Loading..."
+                className="loaderHome"
+              />
+            </div>
           ) : (
-            currentGames.map((card) => {
+            currentGames.map((el) => {
               return (
-                <div key={card.id}>
+                <div key={el.id}>
                   <Card
-                    key={card.id}
-                    id={card.id}
-                    name={card.name}
-                    image={card.image}
-                    rating={card.rating}
+                    key={el.id}
+                    id={el.id}
+                    name={el.name}
+                    image={el.image}
+                    rating={el.rating}
                     genres={
                       !currentGames[0].createdInDb
-                        ? card.genres
+                        ? el.genres
                         : currentGames[0].genres.join(" - ")
                     }
                   />
@@ -145,14 +147,10 @@ const Home = () => {
             })
           )}
         </div>
-        <Pagination
-          gamesPerPage={gamesPerPage}
-          fullGames={fullgames.length}
-          paginado={Pagination}
-        />
       </div>
     </div>
   );
-};
+}
+
 
 export default Home;

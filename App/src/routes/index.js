@@ -1,11 +1,44 @@
 const router = require("express").Router();
 
+const { getGenres } = require("../handlers/GetControllers/getGenres");
 const {
   getVideogamesById,
-  getGameByName,
+  getInfoByName,
   getAllInfo,
 } = require("../handlers/GetControllers/getVideogames");
 const postVideogames = require("../handlers/PostController/postVideogames");
+
+
+// trae todos los games 
+//y por /name solo por nombre
+router.get("/games", async (req, res) => {
+  let { name } = req.query;
+  
+  try {
+    if (name) {
+      const infoByName = await getInfoByName(name);
+      
+      res.status(200).send(infoByName);
+    } else {
+      const allData = await getAllInfo();
+      res.status(200).send(allData);
+    }
+  } catch (e) {
+    res.status(404).send("Juego no encontrado");
+  }
+});
+
+
+
+router.get("games/:id", getVideogamesById); // BY ID
+
+router.get("/genres"  , getGenres);    //BY GENRES 
+
+router.post("/createdgames", postVideogames); //CREA JUEGOS
+
+module.exports = router;
+
+
 
 
 //obtiene un array de todos los videogames
@@ -38,11 +71,3 @@ const postVideogames = require("../handlers/PostController/postVideogames");
 //   }
 // });
 // router.get("/games" , getAllInfo); 
-
-router.get("/name" , getGameByName);
-
-router.get("/:id", getVideogamesById); // BY ID
-
-router.post("/createdgames", postVideogames); //CREA JUEGOS
-
-module.exports = router;

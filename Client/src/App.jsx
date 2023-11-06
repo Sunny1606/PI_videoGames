@@ -1,4 +1,6 @@
+
 import { Route, Routes } from "react-router-dom";
+
 import PATHROUTES from "./components/Helpers/pathRoutes";
 import LandingPage from "./components/LandingPage/landingPage";
 import Form from "./components/FormPage/form";

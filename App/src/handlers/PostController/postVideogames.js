@@ -5,6 +5,7 @@ const { Sequelize } = require("sequelize");
 const { Op } = require("sequelize");
 
 const postVideogames = async (req, res) => {
+  
   try {
     const { name, image, description, released, rating , platform} = req.body;
 
