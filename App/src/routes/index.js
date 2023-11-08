@@ -1,5 +1,8 @@
 const router = require("express").Router();
+const { Router } = require("express");
 
+
+<<<<<<< HEAD
 const {
   getVideogamesById,
   getGameByName,
@@ -7,8 +10,9 @@ const {
 } = require("../handlers/GetControllers/getVideogames");
 const postVideogames = require("../handlers/PostController/postVideogames");
 const axios = require("axios");
+=======
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 
-//obtiene un array de todos los videogames
 const URL = "https://api.rawg.io/api/";
 const RESULTS_PER_PAGE = 50;
 const MAX_RESULTS = 100;
@@ -32,17 +36,38 @@ router.get("/games", async (req, res) => {
     }
 
     res.json(allGames);
+<<<<<<< HEAD
+=======
+    console.log(allGames);
+
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
   } catch (error) {
     res.status(500).send("Hubo un error al obtener los videojuegos.");
   }
 });
 
+<<<<<<< HEAD
 router.get("/games/:id", getVideogamesById); // BY ID
+=======
 
-router.get("/genres", getGenres); // BY GENEROS
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 
+// Importar todos los routers;
+// Ejemplo: const authRouter = require('./auth.js');
+const getGenres = require("./getGenres");
+const getVideogames = require("./getVideogames");
+const postVideogames = require("./postVideogames");
+
+<<<<<<< HEAD
 router.get("/:name", getGameByName); //BY NAMES
 
 router.post("/createdgames", postVideogames); //CREA JUEGOS
+=======
+// Configurar los routers
+// Ejemplo: router.use('/auth', authRouter);
+router.get("/videogames", getGenres); // GETS
+router.get("/genres", getVideogames); // GET
+router.post("/create", postVideogames); // POST
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 
 module.exports = router;

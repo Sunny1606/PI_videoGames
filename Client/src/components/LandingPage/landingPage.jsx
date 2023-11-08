@@ -3,15 +3,12 @@ import styles from "./landing.module.css";
 import PATHROUTES from "../Helpers/pathRoutes";
 
 const LandingPage = () => {
-
-
-  
   return (
     <div>
       <div className={styles.image}></div>
       <h1 className={styles.title}>Welcome to VideoGames</h1>
-      <button className={styles.button}>
-        <Link className={styles.button} to={PATHROUTES.HOME}>
+      <button className={styles.buttonLink} >
+        <Link className={styles.link} to={PATHROUTES.HOME}>
           GO IT!
         </Link>
       </button>

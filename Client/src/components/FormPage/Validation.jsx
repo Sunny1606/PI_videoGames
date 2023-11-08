@@ -1,16 +1,22 @@
-const validation = (data) => {
-    let errors = {}
 
-    if (data.name){
-        errors.e1 = "Debe tener menos de 36 caracteres";
+function validation(input) {
+    let errors = {};
+    if (!input.name) {
+      errors.name = "Se requiere un nombre!";
     }
-    if(data.description) {
-        errors.e2 = "Este campo es obligatorio" ; 
+    if (!input.description) {
+      errors.description = "Se debe agregar una descripción!";
     }
- 
-    
-  
-    
+    if (!input.released) {
+      errors.release = "Agregar fecha de lanzamiento";
+    }
+    if (!input.rating || input.rating > 10 || input.rating < 1) {
+      errors.rating = "Rating entre 1 y 10!";
+    }
     return errors;
-}
+  }
+
+
+
+
 export default validation;

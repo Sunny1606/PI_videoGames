@@ -8,12 +8,20 @@ import {
   SEARCH_BY_NAME,
   SEARCH_BY_ID,
   FILTER_CREATED,
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 } from "./actions";
 
 const InitialState = {
+  fullGames: [],
   videogames: [],
   genres: [],
+<<<<<<< HEAD
   source: [],
+=======
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
   detail: [],
 };
 
@@ -26,13 +34,19 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         videogames: payload,
         fullGames: payload,
       };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     case GET_GENRES:
       return {
         ...state,
         genres: payload,
       };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     case SEARCH_BY_NAME:
       return {
         ...state,
@@ -125,10 +139,17 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         detail: payload,
       };
 
+<<<<<<< HEAD
     case POST_GAMES:
       return {
         ...state,
       };
+=======
+      case POST_GAMES:
+        return {
+          ...state,
+        };
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     default:
       return state;
   }

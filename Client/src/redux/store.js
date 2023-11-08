@@ -13,3 +13,4 @@ const composeEnhancers =
     composeEnhancers (applyMiddleware(thunk))
   );
   export default store;
+

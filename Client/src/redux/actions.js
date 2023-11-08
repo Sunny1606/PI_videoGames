@@ -1,6 +1,9 @@
 import axios from "axios";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 export const GET_GAMES = "GET_GAMES";   //muestra todos los games
 export const GET_GENRES = "GET_GENRES";   // muestra todos los generos 
 export const POST_GAMES = "POST_GAMES";    
@@ -15,7 +18,11 @@ export const SEARCH_BY_ID = "SEARCH_BY_ID";
 
 export function getGames() {
   return async function (dispatch) {
+<<<<<<< HEAD
     let response = await axios.get("http://localhost:3005/games");
+=======
+    let response = await axios.get("/videogames");
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     return dispatch({
       type: GET_GAMES,
       payload: response.data,
@@ -26,7 +33,11 @@ export function getGames() {
 
 export function getGenres() {
   return async function (dispatch) {
+<<<<<<< HEAD
     let response = await axios.get("http://localhost:3005/genres");
+=======
+    let response = await axios.get("/genres");
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     return dispatch({
       type: GET_GENRES,
       payload: response.data,
@@ -40,7 +51,11 @@ export function getDetail(id) {
     return async function (dispatch) {
       try {
      
+<<<<<<< HEAD
         const response = await axios.get(`http://localhost:3005/games/${id}`);
+=======
+        const response = await axios.get(`/games/${id}`);
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
         return dispatch({
           type: SEARCH_BY_ID,
           payload: response.data,
@@ -59,7 +74,11 @@ export function getDetail(id) {
 export function getByName(name) {
   return async function (dispatch) {
     try {
+<<<<<<< HEAD
       const response = await axios.get(`http://localhost:3005/name=${name}`);   
+=======
+      const response = await axios.get(`/games?name=${name}`);
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
       return dispatch({
         type: SEARCH_BY_NAME,
         payload: response.data,
@@ -106,6 +125,7 @@ export function postGame(payload) {
   };
 }
 
+<<<<<<< HEAD
 
 // hacer getGames
 // export const getGames = () => {
@@ -174,3 +194,5 @@ export function postGame(payload) {
 //     payload: orden,
 //   };
 // };
+=======
+>>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7

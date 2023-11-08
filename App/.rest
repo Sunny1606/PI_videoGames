@@ -22,17 +22,17 @@ GET platforms   https://api.rawg.io/api/platforms?key=23a478361d724c7a9494319243
 
 RUTAS A REALIZAR
 
-GET allgames http://:localhost3005/games
+GET allgames http://:localhost3005/videogames
 ##
 
 GET id http://:localhost3005/games/{id}  
 ##
 
-GET name http://:localhost3005/games?=name 
+GET name http://localhost3005/games?=name 
 ##
 
 GET genres  http://:localhost3005/genres 
 ##
 
-POST games database  http://:localhost3005/createdgames 
+POST games database  http://:localhost3005/create
 ##
