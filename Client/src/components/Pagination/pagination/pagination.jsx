@@ -27,38 +27,38 @@ export const Pagination = ({
   };
 
   return (
-    <div>
+    <div className={styles.paginationButtons}>
       <button
-        className={`pagination-previus ${
-          currentPage === 1 ? "is-disabled" : ""
+        className={`${styles.paginationButton} ${
+          currentPage === 1 ? styles.disabled : ""
         }`}
         onClick={onPreviusPage}
       >
         Previous
       </button>
-      <button
-        className={`pagination-next ${
-          currentPage >= pageNumbers.length ? "is-disabled" : ""
-        }`}
-        onClick={onNextPage}
-      >
-        Next page
-      </button>
+
       <div className={styles.numbers}>
         {pageNumbers.map((noPage) => (
           <div key={noPage}>
             <button
-              className={`"pagination-link" ${
-                noPage === currentPage ? "is-current" : ""
-              }}`}
+              className={`${styles.paginationLink} ${
+                noPage === currentPage ? styles.current : ""
+              }`}
               onClick={() => onSpecificPage(noPage)}
             >
               {noPage}
             </button>
           </div>
         ))}
-        
       </div>
+      <button
+        className={`${styles.paginationButton} ${
+          currentPage >= pageNumbers.length ? styles.disabled : ""
+        }`}
+        onClick={onNextPage}
+      >
+        Next page
+      </button>
     </div>
   );
 };

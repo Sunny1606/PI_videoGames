@@ -1,10 +1,4 @@
-/* .conteiner {
-    background: rgb(179, 179, 179);
 
-}
-.conteiner2 {
-    background-color: grey;
-} */
 .card {
   width: 400px;
   height: 400px;
@@ -41,3 +35,5 @@
 .info {
   align-items: center;
 }
+
+

@@ -1,74 +1,123 @@
 import styles from "./home.module.css";
-import { connect, useSelector, useDispatch } from "react-redux";
-import { filterGenres, filterSource, orderAZ } from "../../redux/actions";
-import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { GamesList } from "../Pagination/gameList/gamesList";
-import { getGenres, getPlatforms } from "../../redux/actions";
+import PATHROUTES from "../Helpers/pathRoutes";
+import {Link} from "react-router-dom";   
+import SearchBar from "../SearchBar/searchBar"
 
+import {
+  getGames,
+  orderByName,
+  orderByRating,
+  filterCreated,
+  filterByGenres,
+} from "../../redux/actions";
+
+// eslint-disable-next-line react-refresh/only-export-components
 const Home = () => {
   const dispatch = useDispatch();
- 
+  // eslint-disable-next-line no-unused-vars
+  const [order, setOrder] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Obtén los datos de Genres y Platforms del estado Redux
-  const genres = useSelector((state) => state.genres);
-  const platforms = useSelector((state) => state.platforms);
 
-  // Carga los datos de Genres y Platforms al montar el componente
   useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getPlatforms());
+    dispatch(getGames());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleOrderAZ = (e) => {
-    dispatch(orderAZ(e.target.value));
-  };
+  function handleSortName(e) {
+    dispatch(orderByName(e.target.value));
+    setOrder(e.target.value);
+    setCurrentPage(1);
 
-  const handleFilter = (e) => {
-    dispatch(filterGenres(e.target.value));
-  };
+  }
 
-  const handleSourceFilter = (e) => {
-    dispatch(filterSource(e.target.value));
-  };
+  function handleSortRating(e) {
+    dispatch(orderByRating(e.target.value));
+    setOrder(e.target.value);
+    setCurrentPage(1);
+  }
+
+  function handleFilterCreated(e) {
+    dispatch(filterCreated(e.target.value));
+    setCurrentPage(1);
+
+  }
+
+  function handleFilterGenres(e) {
+    dispatch(filterByGenres(e.target.value));
+    setCurrentPage(1);
+
+  }
 
   return (
     <div>
-      <div className={styles.image}></div>
-      <div>
-        <select className={styles.select} onChange={handleOrderAZ} key="orderSelect">
-          <option>Order by Name</option>
-          <option>A-Z</option>
-          <option>Z-A</option>
+         <div>
+         <SearchBar setCurrentPage={setCurrentPage} />
+         </div>
+
+      <div className={styles.AllSelect} >
+        <select
+          className={styles.All}
+          onChange={(e) => {
+            handleSortName(e);
+          }}
+        >
+          <option>Order</option>
+          <option value="asc">A-Z</option>
+          <option value="desc">Z-A</option>
         </select>
-        <select className={styles.select} key="orderSelect2" >
-          <option>Order by Ranking</option>
-          <option>Ascendente</option>
-          <option>Descendente</option>
+
+        <select
+          className={styles.All}
+          onChange={(e) => {
+            handleSortRating(e);
+          }}
+        >
+          <option>Rating</option>
+          <option value="asc">Ascendente</option>
+          <option value="desc">Descendente</option>
         </select>
-        <select className={styles.select} onChange={handleFilter}>
-          <option>Platforms</option>
-          {platforms.length &&
-            platforms.map((platform) => (
-              <option key={platform.id} value={platform.name}>
-                {platform.name}
-              </option>
-            ))}
-        </select>
-        <select className={styles.select} onChange={handleFilter}>
-          <option>Genres</option>
-          {genres.length &&
-            genres.map((genre) => (
-              <option key={genre.id} value={genre.name}>
-                {genre.name}
-              </option>
-            ))}
-        </select>
-        <select className={styles.select} onChange={handleSourceFilter} key="orderSelect3">
-          <option>Source</option>
-          <option>All</option>
+
+        <select
+          className={styles.All}
+          onChange={(e) => handleFilterCreated(e)}
+        >
           <option>Created</option>
-          <option>Not Created</option>
+          <option value="All">All</option>
+          <option value="created">Created</option>
+          <option value="api">Apigames</option>
         </select>
+
+        <select className={styles.All} onChange={handleFilterGenres}>
+          <option>Genres</option>
+          <option value="Action">Action</option>
+          <option value="Indie">Indie</option>
+          <option value="Strategy">Strategy</option>
+          <option value="Adventure">Adventure</option>
+          <option value="RPG">RPG</option>
+          <option value="Shooter">Shooter</option>
+          <option value="Casual">Casual</option>
+          <option value="Simulation">Simulation</option>
+          <option value="Arcade">Arcade</option>
+          <option value="Puzzle">Puzzle</option>
+          <option value="Platformer">Platformer</option>
+          <option value="Racing">Racing</option>
+          <option value="Massively Multiplayer">Massively Multiplayer</option>
+          <option value="Fighting">Fighting</option>
+          <option value="Sports">Sports</option>
+          <option value="Family">Family</option>
+          <option value="Board Games">Board Games</option>
+          <option value="Educational">Educational</option>
+        </select>
+
+        <button className={styles.btnCreated}>
+          <Link className={styles.links} to={PATHROUTES.FORM}>Create Game</Link>
+          </button>
+
         <GamesList />
       </div>
     </div>
@@ -86,4 +135,4 @@ const mapStateToProps = (state) => {
 // });
 
 // eslint-disable-next-line react-refresh/only-export-components
-export default connect(mapStateToProps, null )(Home);
+export default connect(mapStateToProps, null)(Home);

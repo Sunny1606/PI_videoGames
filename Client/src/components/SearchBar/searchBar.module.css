@@ -1,26 +1,27 @@
+.search {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
 .input {
   background-color: white;
   outline: none;
   height: 20px;
   padding: 1 50px;
-  font-weight: 300;
-  margin-right: 15px;
-  display: inline;
-  align-items: center;
-  justify-content: center;
+  
 }
 
-.search {
+.searchButton {
   background-color: #4a0644;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  margin-right: 300px;
   color: rgb(255, 255, 255);
-}
-
-.search:hover {
-  background-color: #900b84;
+  margin: 10px;
+  
 }

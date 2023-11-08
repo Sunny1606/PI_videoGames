@@ -1,36 +1,44 @@
+import { useDispatch } from "react-redux";
 import styles from "./searchBar.module.css";
 import { useState } from "react";
+import { getByName } from "../../redux/actions";
 
 // eslint-disable-next-line react/prop-types
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({setCurrentPage}) {
 
-  let [aux, setAux] = useState('');
-  const [name, setName] = useState("");    // Cambiamos 'id' a 'name'
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");  
 
 
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
+  function handleInputChange(e) {
+    e.preventDefault();
+    setName(e.target.value);
+  }
 
-  function handleSearch(name)  {
-    setAux(name)
-    if (name !== aux) {
-      onSearch(name); // Llama a la función de búsqueda con el nombre
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(getByName(name));
+    setCurrentPage(1);
+    setName("");
   }
 
   return (
-    <div className={styles.searchBar}>
+    <div className={styles.search}>
       <input
         className={styles.input}
         type="text"
         placeholder="Search here..."
-        onChange={handleChange}
+        onChange={handleInputChange}
         value={name}
       />
-      <button onClick={() => handleSearch(name)} className={styles.search}>
-        SEARCH
-      </button>
+     <button
+          className={styles.searchButton}
+          id="bt"
+          type="submit"
+          onClick={(e) => handleSubmit(e)}
+        >
+          SEARCH
+        </button>
     </div>
   );
 }

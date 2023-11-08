@@ -10,16 +10,14 @@ export const GamesList = () => {
 
   const games = useSelector((state) => state.videogames);
 
-  
-  
   const totalGames = games?.length;   //aca se va a guardar todos los games de la api 
   const [gamesForPage] = useState(15);    //cuantos games quiero por pagina 
   const [currentPage, setCurrentPage] = useState(1);   //para pagina actual que inicia en 1 siempre
 
   
-
   useEffect(() => {
     dispatch(getGames());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const indexOfLastGame = currentPage * gamesForPage;
@@ -29,7 +27,7 @@ export const GamesList = () => {
   return (
     <>
       <div className={styles.conteiner} >
-      <Pagination
+      <Pagination 
         gamesForPage={gamesForPage}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
