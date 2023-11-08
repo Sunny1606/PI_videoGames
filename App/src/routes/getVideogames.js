@@ -10,30 +10,40 @@ const router = Router();
 //----------Logica para traer Info de API --------------
 const getApiInfo = async () => {
   const apiGamesInfo = 5;
-  // trae los 100 videoGames (20 por cada llamado)
   const games = [];
 
   for (let i = 1; i <= apiGamesInfo; i++) {
-    const { data } = await axios.get(`https://api.rawg.io/api/games`, {
-      params: { key: API_KEY, page: i },
-    });
+    try {
+      const response = await fetch(
+        `https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`
+      );
 
-    data.results.map((game) => {
-      games.push({
-        id: game.id,
-        name: game.name,
-        description: game.description,
-        released: game.released,
-        image: game.background_image,
-        rating: game.rating,
-        platforms: game.platforms.map((e) => e.platform.name),
-        genres: game.genres.map((e) => e.name),
+      if (!response.ok) {
+        throw new Error(`Error fetching data from API: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      data.results.forEach((game) => {
+        games.push({
+          id: game.id,
+          name: game.name,
+          description: game.description,
+          released: game.released,
+          image: game.background_image,
+          rating: game.rating,
+          platforms: game.platforms.map((e) => e.platform.name),
+          genres: game.genres.map((e) => e.name),
+        });
       });
-    });
+    } catch (error) {
+      console.error(`Error fetching data: ${error}`);
+    }
   }
 
   return games;
 };
+
 
 //----------Logica para traer Info de Data Base --------------
 const getDBInfo = async () => {
