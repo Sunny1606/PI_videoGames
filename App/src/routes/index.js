@@ -9,7 +9,7 @@ const {
 const postVideogames = require("../handlers/PostController/postVideogames");
 
 
-router.get("/games" , getGames);    
+router.get("/games" , getGames);    //todos los juegos de la api y la base de datos
 
 router.get("/genres", getGenres);
 

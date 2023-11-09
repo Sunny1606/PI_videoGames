@@ -15,13 +15,10 @@ export const GamesList = () => {
   const [currentPage, setCurrentPage] = useState(1);   //para pagina actual que inicia en 1 siempre
 
 
-console.log(totalGames);
-
   useEffect(() => {
     dispatch(getGames());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
 
   const indexOfLastGame = currentPage * gamesForPage;

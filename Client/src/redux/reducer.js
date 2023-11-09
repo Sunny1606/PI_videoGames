@@ -36,17 +36,16 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         ...state,
         videogames: payload,
       };
-    case FILTER_BY_GENRE:
-      // eslint-disable-next-line no-case-declarations
-      const todosVideogames = state.fullGames;
-      // eslint-disable-next-line no-case-declarations
-      const filteredGen = todosVideogames.filter((e) =>
-        e.genres.includes(payload)
-      );
-      return {
-        ...state,
-        videogames: filteredGen,
-      };
+      case FILTER_BY_GENRE:
+        // eslint-disable-next-line no-case-declarations
+        const { fullGames } = state;
+        // eslint-disable-next-line no-case-declarations
+        const filteredGen = fullGames.filter((game) => game.genres.includes(payload));
+        return {
+          ...state,
+          videogames: filteredGen,
+        };
+      
 
     case FILTER_BY_RATING:
       // eslint-disable-next-line no-case-declarations
