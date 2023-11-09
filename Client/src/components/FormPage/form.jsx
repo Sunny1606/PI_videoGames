@@ -112,7 +112,7 @@ const Form = () => {
       <form onSubmit={(e) => handleSubmit(e)} className={style.formulario}>
         <div>
           <div>
-            <div className="form_inputs">
+            <div className={style.input}>
               <label>Name </label>
               <input
                 className="inputs"
@@ -123,7 +123,7 @@ const Form = () => {
               />
               {errors.name && <p className="errorcito">{errors.name}</p>}
             </div>
-            <div className="form_inputs">
+            <div className={style.input}>
               <label>Description </label>
               <input
                 className="inputs"
@@ -136,7 +136,7 @@ const Form = () => {
                 <p className="errorcito">{errors.description}</p>
               )}
             </div>
-            <div className="form_inputs">
+            <div className={style.input}>
               <label>Image </label>
               <input
                 className="inputs"
@@ -147,7 +147,7 @@ const Form = () => {
               />
               {errors.img && <p className="errorcito">{errors.img}</p>}
             </div>
-            <div className="form_inputs">
+            <div className={style.input}>
               <label>Release Date </label>
               <input
                 className="inputs"
@@ -158,7 +158,7 @@ const Form = () => {
               />
               {errors.release && <p className="errorcito">{errors.release}</p>}
             </div>
-            <div className="form_inputs">
+            <div className={style.input}>
               <label>Rating </label>
               <input
                 className="inputs"
