@@ -1,9 +1,5 @@
 import axios from "axios";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 export const GET_GAMES = "GET_GAMES";   //muestra todos los games
 export const GET_GENRES = "GET_GENRES";   // muestra todos los generos 
 export const POST_GAMES = "POST_GAMES";    
@@ -18,11 +14,7 @@ export const SEARCH_BY_ID = "SEARCH_BY_ID";
 
 export function getGames() {
   return async function (dispatch) {
-<<<<<<< HEAD
     let response = await axios.get("http://localhost:3005/games");
-=======
-    let response = await axios.get("/videogames");
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     return dispatch({
       type: GET_GAMES,
       payload: response.data,
@@ -33,11 +25,7 @@ export function getGames() {
 
 export function getGenres() {
   return async function (dispatch) {
-<<<<<<< HEAD
     let response = await axios.get("http://localhost:3005/genres");
-=======
-    let response = await axios.get("/genres");
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
     return dispatch({
       type: GET_GENRES,
       payload: response.data,
@@ -51,11 +39,7 @@ export function getDetail(id) {
     return async function (dispatch) {
       try {
      
-<<<<<<< HEAD
         const response = await axios.get(`http://localhost:3005/games/${id}`);
-=======
-        const response = await axios.get(`/games/${id}`);
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
         return dispatch({
           type: SEARCH_BY_ID,
           payload: response.data,
@@ -74,11 +58,7 @@ export function getDetail(id) {
 export function getByName(name) {
   return async function (dispatch) {
     try {
-<<<<<<< HEAD
       const response = await axios.get(`http://localhost:3005/name=${name}`);   
-=======
-      const response = await axios.get(`/games?name=${name}`);
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
       return dispatch({
         type: SEARCH_BY_NAME,
         payload: response.data,
@@ -89,6 +69,13 @@ export function getByName(name) {
   };
 }
 
+export function postGame(payload) {
+  // eslint-disable-next-line no-unused-vars
+  return async function (dispatch) {
+    const response = await axios.post("http://localhost:3005/createdgames", payload);
+    return response;
+  };
+}
 
 export function orderByRating(payload) {
   return {
@@ -117,82 +104,7 @@ export function filterCreated(payload) {
   };
 }
 
-export function postGame(payload) {
-  // eslint-disable-next-line no-unused-vars
-  return async function (dispatch) {
-    const response = await axios.post("/videogame", payload);
-    return response;
-  };
-}
-
-<<<<<<< HEAD
-
-// hacer getGames
-// export const getGames = () => {
-//   return async function (dispatch) {
-//     try {
-//       const {data} = await axios.get("http://localhost:3005/games");
-//       dispatch({
-//         type: "GET_ALL_GAMES",
-//         payload: data,
-//       });
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-// };
-
-// export const getGenres = () => {
-//   const endpoint = "http://localhost:3005/genres";
-//   return async function (dispatch) {
-//     try {
-//       const {data}  = await axios.get(endpoint);
-     
-
-//       if (Array.isArray(data)) {
-//         const genres = data.map((genre) => ({
-//           id: genre.id,
-//           name: genre.name,
-//         }));
-//         dispatch({
-//           type: "GET_ALL_GENRES",
-//           payload: genres,
-//         });
-//       }
-//     } catch (error) {
-//       console.log(error.message);
-//     }
-//   };
-// };
 
 
 
-// export const filterSource = (source) => {
-//   return {
-//     type: "FILTER_SOURCE",
-//     payload: source,
-//   };
-// };
 
-// export const filterGenres = (genre) => {
-//   return {
-//     type: "FILTER_GENRES",
-//     payload: genre,
-//   };
-// };
-
-
-// export const orderAZ = (order) => {
-//   return {
-//     type: "ORDER",
-//     payload: order,
-//   };
-// };
-// export const orderByRanking = (orden) => {
-//   return {
-//     type: "RANKING",
-//     payload: orden,
-//   };
-// };
-=======
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7

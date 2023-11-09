@@ -32,11 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-<<<<<<< HEAD
-const { Videogame , Genres  } = sequelize.models;
-=======
 const { Videogame , Genres } = sequelize.models;
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 
 
 // Aca vendrian las relaciones

@@ -1,22 +1,11 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 .Allselect {
   display: flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
   background-color: #ccb2ca;
 }
 
 .All {
-=======
-  background-color: #1d111c;
-}
-
-.Order {
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
   background-color: #4a0644;
   padding: 10px 20px;
   border: none;
@@ -27,44 +16,6 @@
   margin: 10px;
 }
 
-<<<<<<< HEAD
-=======
-.Rating {
-  background-color: #4a0644;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  margin: 10px;
-}
-
-.Created {
-  background-color: #4a0644;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  margin: 10px;
-
-}
-
-.Genres {
-  background-color: #4a0644;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  margin: 10px;
-
-}
-
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7
 .btnCreated {
   background-color: #4a0644;
   padding: 10px 20px;
@@ -73,7 +24,6 @@
   cursor: pointer;
   text-decoration: none;
   color: rgb(255, 255, 255);
-<<<<<<< HEAD
   margin-bottom: 50px;
   margin-left: 400px;
 }
@@ -84,19 +34,3 @@
   align-items: center;
   justify-content: center;
 }
-=======
-  margin-left: 300px;
-}
-
-.loading{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-block: 100px;
-  font-size: large;
-}
-
-.Card{
-  
-}
->>>>>>> 0c22b022bb39acc5e7ea7f768c7e2de90619afb7

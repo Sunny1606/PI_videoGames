@@ -14,7 +14,9 @@ export const GamesList = () => {
   const [gamesForPage] = useState(15);    //cuantos games quiero por pagina 
   const [currentPage, setCurrentPage] = useState(1);   //para pagina actual que inicia en 1 siempre
 
-  
+ 
+
+
   useEffect(() => {
     dispatch(getGames());
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,11 +1,10 @@
-const router = require(".");
-const { Videogame} = require("../db");
+const router = require("../../routes");
+const { Videogame} = require("../../db");
 const { Router } = require("express");
 const { Sequelize } = require("sequelize");
 const { Op } = require("sequelize");
 
 const postVideogames = async (req, res) => {
-  
   try {
     const { name, image, description, released, rating , platform} = req.body;
 
