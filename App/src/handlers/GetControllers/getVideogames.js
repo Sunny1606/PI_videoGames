@@ -6,7 +6,6 @@ require("dotenv").config();
 const API_KEY = process.env.RAWG_API_KEY;
 const { Videogame, Genres } = require("../../db");
 
-
 const getVideogamesById = async (req, res) => {
   const API_URL = "https://api.rawg.io/api/games";
 
@@ -39,20 +38,21 @@ const getVideogamesById = async (req, res) => {
 //obtiene por query {name}
 const getGameByName = async (req, res) => {
   const API_URL = "https://api.rawg.io/api/games";
-
   try {
-    const { name } = req.params;
+    const  _name  = req.params.name;
+    
     let videogame = {};
-
     // Intenta buscar en la API
-    try {
-      const { name, description, platform, date, rating, image } = (
-        await axios.get(API_URL + name)
-      ).data;
-      videogame = { id, name, description, platform, rating, date, image };
-    } catch (apiError) {
+    
+    const results = await axios.get(`https://api.rawg.io/api/games?search=${_name}&key=ae75eef952fb4f04915045df7043ee37`)
+    console.log(results);
+      
+      
+      videogame = obj ;
+
+     if (!obj) {
       // Si no se encuentra en la API, busca en la base de datos local
-      const game = await Videogame.findByPk(name);
+      const game = await Videogame.findByPk(_name);
       if (game) {
         videogame = game;
       } else {
@@ -64,7 +64,6 @@ const getGameByName = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
-
 
 //obtiene tanto de API como de la base de datos los generos
 const getGenres = async (req, res) => {
@@ -82,7 +81,9 @@ const getGenres = async (req, res) => {
     } else {
       // Si no se encontraron géneros en la base de datos, busca en la API
       // const apiResp = await axios.get(URL)
-      const apiResp = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
+      const apiResp = await axios.get(
+        `https://api.rawg.io/api/genres?key=${API_KEY}`
+      );
       const apiGenres = apiResp.data.results;
 
       // Almacena los géneros de la API en la base de datos

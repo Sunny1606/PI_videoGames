@@ -36,16 +36,17 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         ...state,
         videogames: payload,
       };
-      case FILTER_BY_GENRE:
-        // eslint-disable-next-line no-case-declarations
-        const { fullGames } = state;
-        // eslint-disable-next-line no-case-declarations
-        const filteredGen = fullGames.filter((game) => game.genres.includes(payload));
-        return {
-          ...state,
-          videogames: filteredGen,
-        };
-      
+    case FILTER_BY_GENRE:
+      // eslint-disable-next-line no-case-declarations
+      const { fullGames } = state;
+      // eslint-disable-next-line no-case-declarations
+      const filteredGen = fullGames.filter((game) =>
+        game.genres.includes(payload)
+      );
+      return {
+        ...state,
+        videogames: filteredGen,
+      };
 
     case FILTER_BY_RATING:
       // eslint-disable-next-line no-case-declarations
@@ -132,67 +133,3 @@ const rootReducer = (state = InitialState, { type, payload }) => {
 };
 
 export default rootReducer;
-
-// const InitialState = {
-//   videogames: [],
-//   genres: [],
-//   source: [],
-// };
-
-// const rootReducer = (state = InitialState, { type, payload }) => {
-//   switch (type) {
-//     //case de games
-//     case "GET_ALL_GAMES":
-//       return { ...state, videogames: payload };
-//     case "GET_ALL_GENRES":
-//       return { ...state, genres: payload };
-
-//     case "FILTER_SOURCE":
-//       // eslint-disable-next-line no-case-declarations
-//       let filteredSource = state.videogames.filter((game) => {
-//         if (payload === "ALL") {
-//           return true;
-//         }
-//         return game.source === payload;
-//       });
-//       return {
-//         ...state,
-//         filteredSource,
-//       };
-
-//     case "FILTER_GENRES":
-//       // eslint-disable-next-line no-case-declarations
-//       let filteredGenres = state.genres.filter((genre) => {
-//         return genre.name === payload; // Filtra por el nombre del género
-//       });
-//       return {
-//         ...state,
-//         filteredGenres, // Guarda los géneros filtrados en un nuevo estado
-//       };
-
-//       case "ORDER":
-//       // eslint-disable-next-line no-case-declarations
-//       let copy = state.videogames.sort((a, b) => {
-//         return a > b ;
-//       });
-//       return {
-//         ...state,
-//         videogames: copy,
-//       };
-
-//       case "RANKING":
-//         // eslint-disable-next-line no-case-declarations
-//         let copy2 = state.videogames.sort((a, b) => {
-//           return payload === "A" ? a.id - b.id : b.id - a.id;
-//         });
-//         return {
-//           ...state,
-//           videogames: copy2,
-//         };
-
-//       default:
-//         return state;
-//   }
-// };
-
-// export default rootReducer;

@@ -13,7 +13,7 @@ router.get("/games" , getGames);    //todos los juegos de la api y la base de da
 
 router.get("/genres", getGenres);
 
-router.get("/name", getGameByName);
+router.get("/name/:name", getGameByName);     
 
 router.get("/:id", getVideogamesById); // BY ID
 

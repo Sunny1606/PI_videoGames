@@ -58,7 +58,7 @@ export function getDetail(id) {
 export function getByName(name) {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`http://localhost:3005/name=${name}`);   
+      const response = await axios.get(`http://localhost:3005/games?name=${name}`);   
       return dispatch({
         type: SEARCH_BY_NAME,
         payload: response.data,

@@ -9,6 +9,7 @@ GET games https://api.rawg.io/api/games?key=23a478361d724c7a94943192431943e9
 ##
 
 GET names https://api.rawg.io/api/games?search=NAMEGAME
+https://api.rawg.io/api/games?search={game}
 ##
 
 GET id https://api.rawg.io/api/games?search=IDGAME

@@ -10,7 +10,9 @@ export const GamesList = () => {
 
   const games = useSelector((state) => state.videogames);
 
-  const totalGames = games?.length;   //aca se va a guardar todos los games de la api 
+ 
+
+  const totalGames = games?.length;   //aca se va a guardar todos los games de la api cantidad
   const [gamesForPage] = useState(15);    //cuantos games quiero por pagina 
   const [currentPage, setCurrentPage] = useState(1);   //para pagina actual que inicia en 1 siempre
 
@@ -20,11 +22,13 @@ export const GamesList = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+ 
 
   const indexOfLastGame = currentPage * gamesForPage;
   const indexOfFirstGame = indexOfLastGame - gamesForPage;
   const currentGames = games?.slice(indexOfFirstGame, indexOfLastGame);
 
+  
   return (
     <>
       <div className={styles.conteiner} >
@@ -35,13 +39,15 @@ export const GamesList = () => {
         totalGames={totalGames}
       />
         {currentGames?.map((game) => (
+          
           <div className={styles.card} key={game.id}>
             <div className={styles.imageBox}>
-              <img src={game.background_image} alt={game.name} className={styles.image} />           
+              
+              <img src={game.image} alt={game.name} className={styles.image} />           
             </div>
             <div className={styles.conteiner2}>
               <h2>{game.name}</h2>
-              <p>{game.genres.map((genre) => genre.name).join(", ")}</p>
+              <p>{game.genres.map((genre) => genre).join(", ")}</p>
             </div>
           </div>
         ))}

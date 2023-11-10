@@ -1,10 +1,12 @@
 body {
- background-color: #310e3b;
- font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-
-  /* background-image: url("./components/Image/176452.alfabetajuega-wallpapers-1-060117.webp"); */
+  background-color: #310e3b;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  width: 100vw;
+  min-height: 100vh;
+ 
 }
 
-
-
-
+* {
+  box-sizing: border-box;
+  margin: 0;
+}

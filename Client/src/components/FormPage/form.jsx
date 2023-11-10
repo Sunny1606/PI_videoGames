@@ -12,7 +12,6 @@ const Form = () => {
   const genres = useSelector((state) => state.genres);
   const videogames = useSelector((state) => state.games);
 
-
   //estado local de errores y inputs objetos
   const [errors, setErrors] = useState([]);
   const [userData, setUserData] = useState({
@@ -27,12 +26,13 @@ const Form = () => {
 
   const getPlatforms = function () {
     let aux = videogames;
-    let aux2 = aux.map((e) => e.platforms).flat(5);
+    let aux2 = aux?.map((e) => e.platforms).flat(5);
     let aux3 = new Set(aux2);
     let plat = [...aux3];
     return plat;
   };
   const platform = getPlatforms();
+  console.log(platform);
 
   //-----------------------------------
 
@@ -64,7 +64,6 @@ const Form = () => {
     });
   }
 
-
   function handleSubmit(e) {
     if (
       userData.name.length &&
@@ -92,7 +91,6 @@ const Form = () => {
     }
   }
 
-
   function handleDelete(el) {
     setUserData({
       ...userData,
@@ -104,7 +102,6 @@ const Form = () => {
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
-
 
   return (
     <div className={style.conteiner}>
@@ -121,7 +118,7 @@ const Form = () => {
                 name="name"
                 onChange={handleChange}
               />
-              {errors.name && <p className="errorcito">{errors.name}</p>}
+              {errors.name && <p className={style.errorcito}>{errors.name}</p>}
             </div>
             <div className={style.input}>
               <label>Description </label>
@@ -133,7 +130,7 @@ const Form = () => {
                 onChange={handleChange}
               />
               {errors.description && (
-                <p className="errorcito">{errors.description}</p>
+                <p className={style.errorcito}>{errors.description}</p>
               )}
             </div>
             <div className={style.input}>
@@ -145,7 +142,7 @@ const Form = () => {
                 name="image"
                 onChange={handleChange}
               />
-              {errors.img && <p className="errorcito">{errors.img}</p>}
+              {errors.img && <p className={style.errorcito}>{errors.img}</p>}
             </div>
             <div className={style.input}>
               <label>Release Date </label>
@@ -156,18 +153,24 @@ const Form = () => {
                 name="released"
                 onChange={handleChange}
               />
-              {errors.release && <p className="errorcito">{errors.release}</p>}
+              {errors.release && (
+                <p className={style.errorcito}>{errors.release}</p>
+              )}
             </div>
             <div className={style.input}>
               <label>Rating </label>
               <input
                 className="inputs"
                 type="number"
+                max="10"
+                min="1"
                 value={userData.rating}
                 name="rating"
                 onChange={handleChange}
               />
-              {errors.rating && <p className="errorcito">{errors.rating}</p>}
+              {errors.rating && (
+                <p className={style.errorcito}>{errors.rating}</p>
+              )}
             </div>
           </div>
           <div>
@@ -180,51 +183,33 @@ const Form = () => {
                 ))}
               </select>
             </div>
-            <li>{userData.genres.map((el) => el).join(" - ")}</li>
-            <div className="custom-select">
-              <select onChange={handlePlataforms} className="select-css">
-                {platform.map((e) => (
-                  <option key={e} value={e}>
-                    {e}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <li>{userData.platforms.map((el) => el).join(" - ")}</li>
+            <li className={style.list}>
+              {userData.genres.map((el) => el).join(" - ")}{" "}
+            </li>
           </div>
         </div>
-        <div id="divButtons">
-          <button type="submit" className="add_button">
-            Create
-          </button>
-          <Link to="/home">
-            <button className="add_button">Back</button>
+        <div className={style.buttonConteiner}>
+          <Link className={style.button}>
+            <button type="submit">Create</button>
+          </Link>
+          <Link to="/home" className={style.button}>
+            <button>Back</button>
           </Link>
         </div>
       </form>
       <br />
       <br />
-      <div className="conteiner remove">
-        <h2>Remove Platforms:</h2>
-        {userData.platforms.map((el) => (
-          <div className="cardRemove" key={el}>
-            <p> {el}</p>
-            <button className="delete" onClick={() => handleDelete(el)}>
-              X
-            </button>
-          </div>
-        ))}
-        <h2>Remove Genres:</h2>
 
-        {userData.genres.map((el) => (
-          <div className="cardRemove" key={el}>
-            <p>{el}</p>
-            <button className="delete" onClick={() => handleDelete(el)}>
-              X
-            </button>
-          </div>
-        ))}
-      </div>
+      <h2>Remove Genres:</h2>
+
+      {userData.genres.map((el) => (
+        <div className="cardRemove" key={el}>
+          <p>{el}</p>
+          <button className="delete" onClick={() => handleDelete(el)}>
+            X
+          </button>
+        </div>
+      ))}
     </div>
   );
 };

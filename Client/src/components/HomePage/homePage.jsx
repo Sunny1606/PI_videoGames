@@ -28,6 +28,8 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+
   function handleSortName(e) {
     dispatch(orderByName(e.target.value));
     setOrder(e.target.value);
