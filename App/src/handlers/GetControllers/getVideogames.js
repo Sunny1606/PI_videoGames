@@ -36,32 +36,37 @@ const getVideogamesById = async (req, res) => {
 };
 
 //obtiene por query {name}
+
 const getGameByName = async (req, res) => {
   const API_URL = "https://api.rawg.io/api/games";
-  try {
-    const  _name  = req.params.name;
-    
-    let videogame = {};
-    // Intenta buscar en la API
-    
-    const results = await axios.get(`https://api.rawg.io/api/games?search=${_name}&key=ae75eef952fb4f04915045df7043ee37`)
-    console.log(results);
-      
-      
-      videogame = obj ;
 
-     if (!obj) {
-      // Si no se encuentra en la API, busca en la base de datos local
-      const game = await Videogame.findByPk(_name);
-      if (game) {
-        videogame = game;
-      } else {
-        return res.status(404).send("Videojuego no encontrado");
-      }
-    }
-    return res.json(videogame);
+  const name = req.params.name;
+
+  try {
+    // Buscar en la base de datos
+    const videoGamesFromDB = await Videogame.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${name}%`,
+        },
+      },
+      limit: 100,
+    });
+
+    // Buscar en la API
+    const response = await axios.get(API_URL, {
+      params: {
+        key: API_KEY,
+        page_size: 100,
+        search: name,
+      },
+    });
+
+    const videoGamesFromAPI = response.data.results;
+
+    res.json({ results: [...videoGamesFromDB, ...videoGamesFromAPI] });
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -106,3 +111,31 @@ module.exports = {
   getGameByName,
   getGenres,
 };
+
+// const getGameByName = async (req, res) => {
+//   const API_URL = "https://api.rawg.io/api/games";
+//   try {
+//     const  _name  = req.params.name;
+
+//     let videogame = {};
+//     // Intenta buscar en la API
+
+//     const results = await axios.get(`https://api.rawg.io/api/games?search=${_name}&key=ae75eef952fb4f04915045df7043ee37`)
+//     console.log(results);
+
+//       videogame = obj ;
+
+//      if (!obj) {
+//       // Si no se encuentra en la API, busca en la base de datos local
+//       const game = await Videogame.findByPk(_name);
+//       if (game) {
+//         videogame = game;
+//       } else {
+//         return res.status(404).send("Videojuego no encontrado");
+//       }
+//     }
+//     return res.json(videogame);
+//   } catch (error) {
+//     res.status(500).send({ message: error.message });
+//   }
+// };
