@@ -39,7 +39,8 @@ export function getDetail(id) {
     return async function (dispatch) {
       try {
      
-        const response = await axios.get(`http://localhost:3005/games/${id}`);
+        const response = await axios.get(`http://localhost:3005/${id}`);   //verificar la URL !!!
+   
         return dispatch({
           type: SEARCH_BY_ID,
           payload: response.data,

@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import PATHROUTES from "./components/Helpers/pathRoutes";
 import LandingPage from "./components/LandingPage/landingPage";
 import Form from "./components/FormPage/form";
-import Detail from "./components/Detail/detaillGame";
+import Detail from "./components/Detail/detailGame";
 import Home from "./components/HomePage/homePage";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
         <Route path={PATHROUTES.HOME} element={<Home />} />
         <Route path={PATHROUTES.FORM} element={<Form />} />
-        <Route path={PATHROUTES.DETAIL} component={<Detail />} />
+        <Route path={PATHROUTES.DETAIL} element={<Detail />} />
       </Routes>
     </div>
   );
