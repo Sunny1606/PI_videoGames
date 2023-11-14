@@ -20,18 +20,18 @@ module.exports = (sequelize) => {
       },
       platform: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: true,
+        
       },
       released: {
         type: DataTypes.DATE,
       },
       rating: {
         type: DataTypes.DECIMAL(3, 2),
-        allowNull: false,
+        allowNull: true,
       },
       createdInDb: {
         type: DataTypes.BOOLEAN,

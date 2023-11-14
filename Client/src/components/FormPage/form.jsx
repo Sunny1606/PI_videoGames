@@ -8,9 +8,8 @@ import validation from "./Validation";
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const genres = useSelector((state) => state.genres);
-  const videogames = useSelector((state) => state.games);
+  const games = useSelector((state) => state.videogames);
 
   //estado local de errores y inputs objetos
   const [errors, setErrors] = useState([]);
@@ -25,14 +24,13 @@ const Form = () => {
   });
 
   const getPlatforms = function () {
-    let aux = videogames;
-    let aux2 = aux?.map((e) => e.platforms).flat(5);
+    let aux = games;
+    let aux2 = aux.map((e) => e.platforms).flat(5);
     let aux3 = new Set(aux2);
     let plat = [...aux3];
     return plat;
   };
   const platform = getPlatforms();
-  console.log(platform);
 
   //-----------------------------------
 
@@ -65,15 +63,9 @@ const Form = () => {
   }
 
   function handleSubmit(e) {
-    if (
-      userData.name.length &&
-      userData.description.length &&
-      userData.platforms.length
-      // !input.rating > 5 &&
-      // !input.rating < 1
-    ) {
+    if (userData.name.length && userData.description.length) {
       e.preventDefault();
-      dispatch(postGame(userData));
+      dispatch(postGame(setUserData));
       alert("Videojuego Creado!!");
       setUserData({
         name: "",
@@ -101,7 +93,7 @@ const Form = () => {
 
   useEffect(() => {
     dispatch(getGenres());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={style.conteiner}>
@@ -173,9 +165,24 @@ const Form = () => {
               )}
             </div>
           </div>
+          <div className={style.conteinerSelect}>
+            <select onChange={handlePlataforms}>
+              {platform.map((e) => (
+                <option key={e} value={e}>
+                  {e}
+                </option>
+              ))}
+            </select>
+            <div>
+              <li className={style.list}>
+                {userData.platforms.map((el) => el).join(" - ")}
+              </li>
+            </div>
+          </div>
+
           <div>
-            <div className="custom-select">
-              <select onChange={handleGenre} className="select-css">
+            <div className={style.conteinerSelect}>
+              <select onChange={handleGenre}>
                 {genres.map((e) => (
                   <option key={e.name} value={e.name}>
                     {e.name}
@@ -184,14 +191,14 @@ const Form = () => {
               </select>
             </div>
             <li className={style.list}>
-              {userData.genres.map((el) => el).join(" - ")}{" "}
+              {userData.genres.map((el) => el).join(" - ")}
             </li>
           </div>
         </div>
         <div className={style.buttonConteiner}>
-          <Link className={style.button}>
-            <button type="submit">Create</button>
-          </Link>
+          <button className={style.button} type="submit">
+            Create
+          </button>
           <Link to="/home" className={style.button}>
             <button>Back</button>
           </Link>
@@ -200,12 +207,20 @@ const Form = () => {
       <br />
       <br />
 
-      <h2>Remove Genres:</h2>
-
+      <h2 className={style.titleh2}>Remove Platforms:</h2>
+      {userData.platforms.map((el) => (
+        <div className={style.conteinerGenres} key={el}>
+          <p className={style.p}> {el}</p>
+          <button className={style.buttonX} onClick={() => handleDelete(el)}>
+            X
+          </button>
+        </div>
+      ))}
+      <h2 className={style.titleh2}>Remove Genres:</h2>
       {userData.genres.map((el) => (
-        <div className="cardRemove" key={el}>
-          <p>{el}</p>
-          <button className="delete" onClick={() => handleDelete(el)}>
+        <div className={style.conteinerGenres} key={el}>
+          <p className={style.p}>{el}</p>
+          <button className={style.buttonX} onClick={() => handleDelete(el)}>
             X
           </button>
         </div>

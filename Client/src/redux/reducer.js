@@ -1,3 +1,4 @@
+import { all } from "axios";
 import {
   GET_GAMES,
   GET_GENRES,
@@ -103,19 +104,21 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         videogames: sortName,
       };
 
-    case FILTER_CREATED:
-      // eslint-disable-next-line no-case-declarations
-      const allGames = state.fullGames;
+   case FILTER_CREATED:
 
-      // eslint-disable-next-line no-case-declarations
-      const createdFilter =
-        payload === "created"
-          ? allGames.filter((el) => el.createdInDb)
-          : allGames.filter((el) => !el.createdInDb);
-      return {
-        ...state,
-        videogames: payload === "All" ? allGames : createdFilter,
-      };
+   // eslint-disable-next-line no-case-declarations
+   const allGames = state.videogames;
+
+   // eslint-disable-next-line no-case-declarations
+   const createdFilter =
+     payload === "created"
+       ? allGames.filter((el) => el.createdInDb)
+       : allGames.filter((el) => !el.createdInDb);
+   return {
+     ...state,
+     videogames: 
+   };
+
 
     case SEARCH_BY_ID:
       return {

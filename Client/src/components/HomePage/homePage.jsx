@@ -89,7 +89,6 @@ const Home = () => {
           onChange={(e) => handleFilterCreated(e)}
         >
           <option>Created</option>
-          <option value="All">All</option>
           <option value="created">Created</option>
           <option value="api">Apigames</option>
         </select>
