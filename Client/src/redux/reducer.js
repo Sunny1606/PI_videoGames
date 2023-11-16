@@ -1,4 +1,3 @@
-import { all } from "axios";
 import {
   GET_GAMES,
   GET_GENRES,
@@ -7,15 +6,13 @@ import {
   FILTER_BY_GENRE,
   FILTER_BY_RATING,
   SEARCH_BY_NAME,
-  SEARCH_BY_ID,
   FILTER_CREATED,
 } from "./actions";
 
 const InitialState = {
-  fullGames: [],
+  searchVideogame: [],
   videogames: [],
   genres: [],
-  detail: [],
 };
 
 const rootReducer = (state = InitialState, { type, payload }) => {
@@ -25,18 +22,19 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       return {
         ...state,
         videogames: payload,
-        fullGames: payload,
       };
     case GET_GENRES:
       return {
         ...state,
         genres: payload,
       };
+
     case SEARCH_BY_NAME:
       return {
         ...state,
-        videogames: payload,
+        searchVideogame: payload,
       };
+
     case FILTER_BY_GENRE:
       // eslint-disable-next-line no-case-declarations
       const { fullGames } = state;
@@ -104,32 +102,32 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         videogames: sortName,
       };
 
-   case FILTER_CREATED:
+    case FILTER_CREATED:
+      // eslint-disable-next-line no-case-declarations
+      let filteredGames;
 
-   // eslint-disable-next-line no-case-declarations
-   const allGames = state.videogames;
+      if (payload === "Apigames") {
+        filteredGames = state.videogames;
+      } else {
+        const isCreated = payload === "created";
 
-   // eslint-disable-next-line no-case-declarations
-   const createdFilter =
-     payload === "created"
-       ? allGames.filter((el) => el.createdInDb)
-       : allGames.filter((el) => !el.createdInDb);
-   return {
-     ...state,
-     videogames: 
-   };
+        filteredGames = state.videogames.filter((el) => {
+          // Lógica de filtrado para juegos creados o de la API
+          return isCreated ? el.createdInDb : !el.createdInDb;
+        });
+      }
 
-
-    case SEARCH_BY_ID:
       return {
         ...state,
-        detail: payload,
+        videogames: filteredGames,
       };
 
     case POST_GAMES:
       return {
         ...state,
+        videogames: payload,
       };
+
     default:
       return state;
   }

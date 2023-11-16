@@ -1,44 +1,46 @@
-import { useDispatch } from "react-redux";
-import styles from "./searchBar.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import style from "./searchBar.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import { getByName } from "../../redux/actions";
 
-// eslint-disable-next-line react/prop-types
-export default function SearchBar({setCurrentPage}) {
+//  busco en el estado general
 
+const SearchBar = () => {
+  const games = useSelector((state) => state?.videogames);
   const dispatch = useDispatch();
-  const [name, setName] = useState("");  
+  const [search, setSearch] = useState("");
 
 
-  function handleInputChange(e) {
-    e.preventDefault();
-    setName(e.target.value);
-  }
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+    handleSearch();
+  };
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(getByName(name));
-    setCurrentPage(1);
-    setName("");
-  }
+  useEffect(() => {
+    handleSearch();
+  }, []); // Ejecutar la búsqueda cuando 'search' cambie para evitar desfasaje
+
+  const handleSearch = () => {
+    const found = games.filter((videogames) =>
+      videogames?.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    dispatch(getByName(found));
+  };
 
   return (
-    <div className={styles.search}>
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="Search here..."
-        onChange={handleInputChange}
-        value={name}
-      />
-     <button
-          className={styles.searchButton}
-          id="bt"
-          type="submit"
-          onClick={(e) => handleSubmit(e)}
-        >
-          SEARCH
-        </button>
+    <div className={style.search}>
+      <div>
+        <input
+          className={style.input}
+          type="text"
+          placeholder="Search here..."
+          value={search}
+          onChange={handleChange}
+        />
+      </div>
     </div>
   );
-}
+};
+
+export default SearchBar;

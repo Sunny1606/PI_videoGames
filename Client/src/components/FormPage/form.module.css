@@ -67,9 +67,9 @@
   font-size: 16px;
 }
 
-.button button:hover {
+/* .button button:hover {
   background-color: rgba(182, 182, 182, 0.664);
-}
+} */
 
 .errorcito {
   position: absolute;
@@ -101,3 +101,15 @@
   align-items: center;
   margin-top: 20px;
 }
+
+.buttonCreated {
+  height: 40px;
+  width: 121px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgb(182, 182, 182);
+  font-size: 16px;
+  border: none;
+}
+
+

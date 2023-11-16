@@ -1,12 +1,36 @@
-.detail {
-    width: 300px;
-    border-radius: 20px;
-    background: #212121;
-    box-shadow: 10px 10px 25px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    margin: 0;
-    padding: 15px;
-  }
+.conteiner {
+  background-color: bisque;
+  height: 400px;
+  width: 600px;
+  padding: 30px;
+  margin-left: 400px;
+}
+
+.buttonConteiner {
+  height: 40px;
+  width: 250px;
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.button {
+  flex: 1;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.button button {
+  height: 80%;
+  width: 50%;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(182, 182, 182, 0.589);
+  font-size: 15px;
+}
+
+.titleH3{
+  
+}

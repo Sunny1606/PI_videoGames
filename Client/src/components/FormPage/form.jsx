@@ -196,9 +196,10 @@ const Form = () => {
           </div>
         </div>
         <div className={style.buttonConteiner}>
-          <button className={style.button} type="submit">
+          <button className={style.buttonCreated} type="submit">
             Create
           </button>
+
           <Link to="/home" className={style.button}>
             <button>Back</button>
           </Link>

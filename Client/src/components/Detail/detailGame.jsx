@@ -2,53 +2,48 @@
 
 import { Link, useParams } from "react-router-dom";
 import styles from "./detailGame.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../../redux/actions";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Detail() {
-  const dispatch = useDispatch();
   const { id } = useParams();
-  const games = useSelector((state) => state.detail);
 
-  console.log(games);
+  const [videogames, setVideogame] = useState({});
+
+  console.log(videogames);
 
   useEffect(() => {
-    setTimeout(() => dispatch(getDetail(id)), 3000);
-    return () => dispatch(getDetail());
-  }, [dispatch, id]);
-
-  
+    axios
+      .get(`http://localhost:3005/${id}`)
+      .then(({ data }) => {
+        setVideogame(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log("Error al obtener los detalles de videogame:", error);
+      });
+  }, []);
 
   return (
-    <div>
-      <h1>{games.name}</h1>
-      <div className={styles.image}></div>
-      <div className="subtitle">Rating:</div>
-      <div className="text">{games.rating}</div>
-      <div className="subtitle">Released:</div>
-      <div className="text">{games.released.split("T").shift()}</div>
-      <div className="subtitle">Description:</div>
-      <div className="text" id="description">
-        {games.description}
+    <div className={styles.conteiner}>
+      <div className={styles.detail}>
+        <h1>{videogames?.name}</h1> <span> ID:{videogames?.id}</span>
+        <div className={styles.titleH3}>
+          <h3>{videogames?.description}</h3>
+          <h3>Released: {videogames?.released}</h3>
+          <h3>Rating: {videogames?.rating}</h3>
+          <h3>Genre: {videogames?.genre}</h3>
+          <h3>Platforms: {videogames?.plataformas}</h3>
+        </div>
+        <img src={videogames?.Imagen} alt={videogames?.name} />
       </div>
-      <div>
-        <div className="subtitle">Genres:</div>
-        <div className="text">{games.genres.map((el) => el + " ")}</div>
-      </div>
-      <div>
-        <div className="subtitle">Platforms:</div>
-        <div className="text">{games.platforms}</div>
-      </div>
-      <div>
-        <Link to="/home">
-          <button id="landButton" className="btnD">
-            volver
-          </button>
+
+      <div className={styles.buttonConteiner}>
+        <Link className={styles.button} to={"/home"}>
+          <button> BACK </button>
         </Link>
       </div>
     </div>
   );
 }
-
-
