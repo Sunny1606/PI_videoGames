@@ -9,34 +9,38 @@ import axios from "axios";
 export default function Detail() {
   const { id } = useParams();
 
-  const [videogames, setVideogame] = useState({});
-
-  console.log(videogames);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3005/${id}`)
+      .get(`http://localhost:3005/detail/${id}`)
+
       .then(({ data }) => {
-        setVideogame(data);
-        console.log(data);
+        setData(data);
       })
       .catch((error) => {
         console.log("Error al obtener los detalles de videogame:", error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={styles.conteiner}>
       <div className={styles.detail}>
-        <h1>{videogames?.name}</h1> <span> ID:{videogames?.id}</span>
         <div className={styles.titleH3}>
-          <h3>{videogames?.description}</h3>
-          <h3>Released: {videogames?.released}</h3>
-          <h3>Rating: {videogames?.rating}</h3>
-          <h3>Genre: {videogames?.genre}</h3>
-          <h3>Platforms: {videogames?.plataformas}</h3>
+          <h2> {data.id}</h2>
+          <h3> Name: {data.Name}</h3>
+          <h3 className={styles.description}>
+            Description: {data.Description}
+          </h3>
+          <h3>Released: {data.Released}</h3>
+          <h3>Rating: {data.Rating}</h3>
+          <h3>Genres: {data.Genre}</h3>
+          <h3> Platforms: {data.Platforms}</h3>
         </div>
-        <img src={videogames?.Imagen} alt={videogames?.name} />
+        <div className={styles.img}>
+          <img src={data.Image} />
+        </div>
       </div>
 
       <div className={styles.buttonConteiner}>

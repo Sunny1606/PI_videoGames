@@ -12,7 +12,7 @@ function App() {
         <Route path={PATHROUTES.LOGIN} element={<LandingPage />} />
         <Route path={PATHROUTES.HOME} element={<Home />} />
         <Route path={PATHROUTES.FORM} element={<Form />} />
-        <Route path={PATHROUTES.DETAIL} element={<Detail />} />
+        <Route path= "/detail/:id" element={<Detail />} />
       </Routes>
     </div>
   );

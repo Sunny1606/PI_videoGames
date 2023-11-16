@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Pagination } from "../pagination/pagination";
 import { getGames } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-import PATHROUTES from "../../Helpers/pathRoutes";
+
 
 export const GamesList = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ export const GamesList = () => {
   const indexOfFirstGame = indexOfLastGame - gamesForPage;
   const currentGames = games?.slice(indexOfFirstGame, indexOfLastGame);
 
+ 
+
   return (
     <>
       <div className={styles.conteiner}>
@@ -36,7 +38,7 @@ export const GamesList = () => {
         {currentGames?.map((game) => (
           <div className={styles.card} key={game.id}>
             <div className={styles.imageBox}>
-              <Link to={PATHROUTES.DETAIL}>
+              <Link to= {`/detail/${game.id}`}>
                 <img
                   src={game.image}
                   alt={game.name}

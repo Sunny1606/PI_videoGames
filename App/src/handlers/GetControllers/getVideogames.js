@@ -7,6 +7,13 @@ const API_KEY = process.env.RAWG_API_KEY;
 const { Videogame, Genres } = require("../../db");
 
 const getVideogamesById = async (req, res) => {
+
+  const removeHTMLTags = (text) => {
+    // Expresión regular para buscar y eliminar las etiquetas HTML
+    const regex = /(<([^>]+)>)/gi;
+    return text.replace(regex, "");
+  };
+
   const { id } = req.params;
   try {
     // busco en la bdd si el id es uuid
@@ -20,13 +27,13 @@ const getVideogamesById = async (req, res) => {
       });
       const dbFiltered = {
         id: dbVideogame.ID,
-        Nombre: dbVideogame.Nombre,
-        Plataformas: dbVideogame.Plataformas,
-        Descripcion: dbVideogame.Description,
-        FechaLanzamiento: dbVideogame.FechaLanzamiento,
+        Name: dbVideogame.Name,
+        Platforms: dbVideogame.Platforms,
+        Description: dbVideogame.Description,
+        Released: dbVideogame.Released,
         Rating: dbVideogame.Rating,
-        Generos: dbVideogame.Genres?.map((g) => g.Genero).join(", "),
-        Imagen: dbVideogame.Imagen,
+        Genres: dbVideogame.Genres?.map((g) => g.Genre).join(", "),
+        Image: dbVideogame.Image,
       };
       if (!dbVideogame) {
         res.status(404).send("Not found in Database");
@@ -39,13 +46,13 @@ const getVideogamesById = async (req, res) => {
 
       const videogameByID = {
         id: data.id,
-        Nombre: data.name,
-        Plataformas: data.platforms?.map((p) => p.platform.name).join(", "),
-        Descripcion: removeHTMLTags(data.description),
-        FechaLanzamiento: data.released,
+        Name: data.name,
+        Platforms: data.platforms?.map((p) => p.platform.name).join(", "),
+        Description: removeHTMLTags(data.description),
+        Released: data.released,
         Rating: data.rating,
-        Generos: data.genres?.map((g) => g.name).join(", "),
-        Imagen: data.background_image,
+        Genres: data.genres?.map((g) => g.name).join(", "),
+        Image: data.background_image,
       };
 
       res.status(200).json(videogameByID);

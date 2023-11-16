@@ -30,24 +30,30 @@ export function getGenres() {
   };
 }
 
+export const searchVideogame = (data) => {
+  return { type: SEARCH_BY_NAME, payload: data };
+};
 
 
-export function getByName(name) {
-  // eslint-disable-next-line no-unused-vars
-  return async function (dispatch) {
-    const response = await axios.get(
-      `http://localhost:3005/games?name=${name}`
-    );
-    
-    return dispatch({ 
-      type: SEARCH_BY_NAME,
-      payload: response.data });
-  };
-}
 
-export function postGame() {
-  return async function (dispatch) {
-    const response = await axios.post("http://localhost:3005/createdgames");
+
+
+
+// export function getByName(name) {
+//   return async function (dispatch) {
+//     let response = await axios.get(
+//       `http://localhost:3005/${name}`
+//     );
+  
+//     return dispatch({ 
+//       type: SEARCH_BY_NAME,
+//       payload: response.data });
+//   };
+// }
+
+export const postGame = (payload) => {
+  return (dispatch) => {
+    const response = axios.post("http://localhost:3005/createdgames" , payload );
    
     return dispatch({
       type: POST_GAMES,

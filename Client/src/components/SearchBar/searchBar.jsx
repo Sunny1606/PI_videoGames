@@ -1,40 +1,51 @@
 import { useState, useEffect } from "react";
-import style from "./searchBar.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getByName } from "../../redux/actions";
+// import style from "./searchBar.module.css";
+import { useDispatch  } from "react-redux";
+import axios from "axios";
+// import { getByName } from "../../redux/actions";
+import  {searchVideogame} from "../../redux/actions";
 
-//  busco en el estado general
 
-const SearchBar = () => {
-  const games = useSelector((state) => state?.videogames);
+
+const Search = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const [dataSearch, setDataSearch] = useState([]);
 
+console.log(dataSearch);
 
   const handleChange = (event) => {
     setSearch(event.target.value);
-    handleSearch();
+    search.length ? handleSearch() : setDataSearch([]);
   };
 
   useEffect(() => {
     handleSearch();
   }, []); // Ejecutar la búsqueda cuando 'search' cambie para evitar desfasaje
 
-  const handleSearch = () => {
-    const found = games.filter((videogames) =>
-      videogames?.name.toLowerCase().includes(search.toLowerCase())
-    );
+  const handleSearch = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3005/name?name=${search}`
+        );
+        
+        console.log(data);
+     
 
-    dispatch(getByName(found));
+      setDataSearch(data);
+      dispatch(searchVideogame(dataSearch));
+    } catch (error) {
+      console.log("Error al buscar");
+    }
   };
 
   return (
-    <div className={style.search}>
-      <div>
+    <div className="search-container">
+      <div className="search-bar">
         <input
-          className={style.input}
+          className="searchInput"
           type="text"
-          placeholder="Search here..."
+          placeholder="Busca tu Videogame"
           value={search}
           onChange={handleChange}
         />
@@ -43,4 +54,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default Search;

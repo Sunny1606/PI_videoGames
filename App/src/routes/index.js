@@ -15,7 +15,7 @@ router.get("/genres", getGenres);
 
 router.get("/:name", getGameByName);     
 
-router.get("games/:id", getVideogamesById); // BY ID
+router.get("/detail/:id", getVideogamesById); // BY ID
 
 router.post("/createdgames", postVideogames); //CREA JUEGOS
 
