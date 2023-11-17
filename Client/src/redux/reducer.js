@@ -12,6 +12,7 @@ import {
 const InitialState = {
   searchVideogame: [],
   videogames: [],
+  videogamesCopy: [],
   genres: [],
 };
 
@@ -19,9 +20,11 @@ const rootReducer = (state = InitialState, { type, payload }) => {
   switch (type) {
     //case de games
     case GET_GAMES:
+      
       return {
         ...state,
         videogames: payload,
+        videogamesCopy : payload,
       };
     case GET_GENRES:
       return {
@@ -32,7 +35,7 @@ const rootReducer = (state = InitialState, { type, payload }) => {
     case SEARCH_BY_NAME:
       return {
         ...state,
-        searchVideogame: payload,
+        videogames: payload,
       };
 
     case FILTER_BY_GENRE:

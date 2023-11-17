@@ -35,7 +35,7 @@ export default function Detail() {
           </h3>
           <h3>Released: {data.Released}</h3>
           <h3>Rating: {data.Rating}</h3>
-          <h3>Genres: {data.Genre}</h3>
+          <h3>Genres: {data.Genres}</h3>
           <h3> Platforms: {data.Platforms}</h3>
         </div>
         <div className={styles.img}>

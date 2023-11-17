@@ -20,3 +20,4 @@ router.get("/detail/:id", getVideogamesById); // BY ID
 router.post("/createdgames", postVideogames); //CREA JUEGOS
 
 module.exports = router;
+

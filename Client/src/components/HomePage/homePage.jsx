@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { GamesList } from "../Pagination/gameList/gamesList";
 import PATHROUTES from "../Helpers/pathRoutes";
 import {Link} from "react-router-dom";   
-import SearchBar from "../SearchBar/searchBar"
 
 import {
   getGames,
@@ -58,7 +57,6 @@ const Home = () => {
   return (
     <div>
          <div>
-         <SearchBar setCurrentPage={setCurrentPage} />
          </div>
 
       <div className={styles.AllSelect} >

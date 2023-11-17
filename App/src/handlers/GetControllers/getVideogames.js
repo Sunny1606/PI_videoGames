@@ -7,7 +7,6 @@ const API_KEY = process.env.RAWG_API_KEY;
 const { Videogame, Genres } = require("../../db");
 
 const getVideogamesById = async (req, res) => {
-
   const removeHTMLTags = (text) => {
     // Expresión regular para buscar y eliminar las etiquetas HTML
     const regex = /(<([^>]+)>)/gi;
@@ -15,6 +14,7 @@ const getVideogamesById = async (req, res) => {
   };
 
   const { id } = req.params;
+
   try {
     // busco en la bdd si el id es uuid
     if (isNaN(id)) {
@@ -35,6 +35,7 @@ const getVideogamesById = async (req, res) => {
         Genres: dbVideogame.Genres?.map((g) => g.Genre).join(", "),
         Image: dbVideogame.Image,
       };
+
       if (!dbVideogame) {
         res.status(404).send("Not found in Database");
       } else return res.status(200).json(dbFiltered);
@@ -65,6 +66,7 @@ const getVideogamesById = async (req, res) => {
 const getGameByName = async (req, res) => {
   const API_URL = "https://api.rawg.io/api/games";
 
+  console.log("tukis");
   const name = req.params.name;
 
   try {
@@ -89,7 +91,16 @@ const getGameByName = async (req, res) => {
 
     const videoGamesFromAPI = response.data.results;
 
-    res.json({ results: [...videoGamesFromDB, ...videoGamesFromAPI] });
+    const apiByName = videoGamesFromAPI.map((videogame) => {
+      return {
+        id: videogame.id,
+        name: videogame.name,
+        image: videogame.background_image,
+        genres: videogame.genres,
+      };
+    });
+
+    res.json({ results: [...videoGamesFromDB, ...apiByName] });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -123,6 +134,7 @@ const getGenres = async (req, res) => {
         id: genre.id,
         name: genre.name,
       }));
+      console.log(mappedApiGenres);
       res.json(mappedApiGenres);
     }
   } catch (error) {
@@ -136,4 +148,3 @@ module.exports = {
   getGameByName,
   getGenres,
 };
-

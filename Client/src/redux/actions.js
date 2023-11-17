@@ -8,15 +8,18 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME"; // alfabrticamente
 export const FILTER_BY_RATING = "FILTER_BY_RATING"; //filtro de rating
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE"; //filtro genero
 export const FILTER_CREATED = "FILTER_CREATED"; //base de datos filtro
-// export const SEARCH_BY_ID = "SEARCH_BY_ID";
 
 export function getGames() {
   return async function (dispatch) {
-    let response = await axios.get("http://localhost:3005/games");
-    return dispatch({
-      type: GET_GAMES,
-      payload: response.data,
-    });
+    try {
+      let response = await axios.get("http://localhost:3005/games");
+      return dispatch({
+        type: GET_GAMES,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 }
 
@@ -34,33 +37,30 @@ export const searchVideogame = (data) => {
   return { type: SEARCH_BY_NAME, payload: data };
 };
 
-
-
-
-
-
 // export function getByName(name) {
 //   return async function (dispatch) {
 //     let response = await axios.get(
 //       `http://localhost:3005/${name}`
 //     );
-  
-//     return dispatch({ 
+
+//     return dispatch({
 //       type: SEARCH_BY_NAME,
 //       payload: response.data });
 //   };
 // }
 
 export const postGame = (payload) => {
-  return (dispatch) => {
-    const response = axios.post("http://localhost:3005/createdgames" , payload );
-   
+  return async (dispatch) => {
+    const response = await axios.post(
+      "http://localhost:3005/createdgames",
+      payload
+    );
     return dispatch({
       type: POST_GAMES,
       payload: response,
     });
   };
-}
+};
 
 export function orderByRating(payload) {
   return {
