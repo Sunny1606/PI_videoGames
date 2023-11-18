@@ -40,9 +40,9 @@ const rootReducer = (state = InitialState, { type, payload }) => {
 
     case FILTER_BY_GENRE:
       // eslint-disable-next-line no-case-declarations
-      const { fullGames } = state;
+      const { videogames } = state;
       // eslint-disable-next-line no-case-declarations
-      const filteredGen = fullGames.filter((game) =>
+      const filteredGen = videogames.filter((game) =>
         game.genres.includes(payload)
       );
       return {

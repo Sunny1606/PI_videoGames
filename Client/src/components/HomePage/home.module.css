@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   background-color: #ccb2ca;
+  
 }
 
 .All {
@@ -13,7 +14,7 @@
   cursor: pointer;
   text-decoration: none;
   color: rgb(255, 255, 255);
-  margin: 10px;
+  margin: 30px;
 }
 
 .btnCreated {
