@@ -1,8 +1,6 @@
 require("dotenv").config();
-// const { Videogame, Genres } = require("../../db");
+const { Videogame, Genres } = require("../../db");
 const axios = require("axios");
-
-
 
 const URL = "https://api.rawg.io/api/";
 const RESULTS_PER_PAGE = 50;
@@ -10,6 +8,15 @@ const MAX_RESULTS = 100;
 
 const getGames = async (req, res) => {
   try {
+    const name = req.query;
+
+    const allVideogamesDB = await Videogame.findAll({
+      include: {
+        model: Genres,
+        atributes: ["name"],
+      },
+    });
+
     const API_KEY = process.env.RAWG_API_KEY;
     let currentPage = 1;
     let totalResults = 0;
@@ -35,8 +42,9 @@ const getGames = async (req, res) => {
       totalResults += games.length;
       currentPage += 1;
     }
-    res.json(allGames); 
-
+    // res.json(allGames);
+    console.log(allVideogamesDB);
+    res.send("hola");
   } catch (error) {
     res.status(500).send("Hubo un error al obtener los videojuegos.");
   }

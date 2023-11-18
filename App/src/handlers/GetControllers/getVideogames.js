@@ -83,13 +83,7 @@ const getGameByName = async (req, res) => {
     const { data } = await axios.get(
       `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
     );
-    // const response = await axios.get(API_URL, {
-    //   params: {
-    //     key: API_KEY,
-    //     page_size: 100,
-    //     search: name,
-    //   },
-    // });
+
 
     const videoGamesFromAPI = data.results;
 
@@ -123,7 +117,7 @@ const getGenres = async (req, res) => {
       res.json(mappedGenres);
     } else {
       // Si no se encontraron géneros en la base de datos, busca en la API
-      // const apiResp = await axios.get(URL)
+      
       const apiResp = await axios.get(
         `https://api.rawg.io/api/genres?key=${API_KEY}`
       );
@@ -136,7 +130,7 @@ const getGenres = async (req, res) => {
         id: genre.id,
         name: genre.name,
       }));
-      console.log(mappedApiGenres);
+    
       res.json(mappedApiGenres);
     }
   } catch (error) {

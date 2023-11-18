@@ -15,7 +15,9 @@ export const GamesList = () => {
 
   const indexOfLastGame = currentPage * gamesForPage;
   const indexOfFirstGame = indexOfLastGame - gamesForPage;
-  const currentGames = games?.slice(indexOfFirstGame, indexOfLastGame);
+  // const currentGames = games?.slice(indexOfFirstGame, indexOfLastGame);
+
+  const currentGames = games && Array.isArray(games) ? games.slice(indexOfFirstGame, indexOfLastGame) : [];
 
   return (
     <>

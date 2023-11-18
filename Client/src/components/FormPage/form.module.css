@@ -9,7 +9,11 @@
   color: rgb(182, 182, 182);
   padding: 20px;
 }
+
 .titleh2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   color: rgb(182, 182, 182);
   margin-left: 20px;
   padding: 10px;
@@ -67,19 +71,16 @@
   font-size: 16px;
 }
 
-/* .button button:hover {
-  background-color: rgba(182, 182, 182, 0.664);
-} */
-
 .errorcito {
   position: absolute;
   bottom: -15px;
   left: 32%;
 }
 
-.conteinerGenres {
+.conteinerFilter {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: rgb(182, 182, 182);
   margin-left: 10px;
   font-size: 20px;
@@ -90,6 +91,7 @@
   background-color: rgb(182, 182, 182);
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .p {
@@ -111,5 +113,3 @@
   font-size: 16px;
   border: none;
 }
-
-

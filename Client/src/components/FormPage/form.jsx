@@ -215,8 +215,8 @@ const Form = () => {
 
       <h2 className={style.titleh2}>Remove Platforms:</h2>
       {userData.platforms.map((el) => (
-        <div className={style.conteinerGenres} key={el}>
-          <p className={style.p}> {el}</p>
+        <div className={style.conteinerFilter} key={el}>
+          <p className={style.titleh2}> {el}</p>
           <button className={style.buttonX} onClick={() => handleDelete(el)}>
             X
           </button>
@@ -224,8 +224,8 @@ const Form = () => {
       ))}
       <h2 className={style.titleh2}>Remove Genres:</h2>
       {userData.genres.map((el) => (
-        <div className={style.conteinerGenres} key={el}>
-          <p className={style.p}>{el}</p>
+        <div className={style.conteinerFilter} key={el}>
+          <p className={style.titleh2}>{el}</p>
           <button className={style.buttonX} onClick={() => handleDelete(el)}>
             X
           </button>

@@ -18,7 +18,9 @@ const postVideogames = async (req, res) => {
     if (existingGame) {
       throw new Error("El nombre del juego ya existe.");
     }
-    const postVideogames = await Videogame.create({
+
+
+    const newVideogames = await Videogame.create({
       name,
       image,
       description,
@@ -26,9 +28,19 @@ const postVideogames = async (req, res) => {
       rating,
       platform,
     });
+
+
+    const allGenres = await Genres.findAll({
+      where : {
+        name :  genres , 
+      }     
+     })
   
+
+     await newVideogames.setGenres(allGenres);
    
-    return res.status(201).json(postVideogames);
+    return res.status(201).json(newVideogames);
+
   } catch (error) {
     return res.status(500).json(error.message);
   }
