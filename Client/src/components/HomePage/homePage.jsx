@@ -5,6 +5,7 @@ import { GamesList } from "../Pagination/gameList/gamesList";
 import PATHROUTES from "../Helpers/pathRoutes";
 import {Link} from "react-router-dom";   
 
+
 import {
   getGames,
   orderByName,
@@ -26,6 +27,7 @@ const Home = () => {
     dispatch(getGames());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
 
 
@@ -116,7 +118,6 @@ const Home = () => {
         <button className={styles.btnCreated}>
           <Link className={styles.links} to={PATHROUTES.FORM}>Create Game</Link>
           </button>
-
         <GamesList />
       </div>
     </div>

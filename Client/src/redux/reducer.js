@@ -12,7 +12,7 @@ import {
 const InitialState = {
   searchVideogame: [],
   videogames: [],
-  videogamesCopy: [],
+  searchvideogamesCopy: [],
   genres: [],
 };
 
@@ -24,7 +24,6 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       return {
         ...state,
         videogames: payload,
-        videogamesCopy : payload,
       };
     case GET_GENRES:
       return {
@@ -36,6 +35,7 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       return {
         ...state,
         videogames: payload,
+        searchvideogamesCopy: payload
       };
 
     case FILTER_BY_GENRE:

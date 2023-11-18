@@ -1,48 +1,25 @@
+/* eslint-disable no-undef */
 import styles from "./gameList.module.css";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Pagination } from "../pagination/pagination";
 import { Link } from "react-router-dom";
 import SearchBar from "../../SearchBar/searchBar";
-import { searchVideogame } from "../../../redux/actions";
-import axios from "axios";
 
 export const GamesList = () => {
-  const dispatch = useDispatch();
+  const games = useSelector((state) => state.videogames); //estos son todos mis juegos traidos
 
-  //aca vienen todos los juegos por redux actions , se guardan en totalgames y despues la paginacion hace lo suyo
-  const allGames = useSelector((state) => state.videogames);
-  const [filteredGames, setFilteredGames] = useState(allGames);
-  // const games = useSelector((state) => state.videogames);
-  const totalGames = filteredGames ? filteredGames.length : 0;
+  const totalGames = games?.length; //aca se va a guardar la cantida de juegos traidos
+  const [gamesForPage] = useState(15); //cuantos games quiero por pagina
+  const [currentPage, setCurrentPage] = useState(1); //para pagina actual que inicia en 1 siempre
 
- 
-  //aca se determina cuantos juegos por pagina , 1 pagina / 15juegos
-  const [gamesForPage] = useState(15);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  //calculo matematico para multiplicar la cantidad de juegos obtenida y el numero de paginas
   const indexOfLastGame = currentPage * gamesForPage;
   const indexOfFirstGame = indexOfLastGame - gamesForPage;
-  const currentGames = Array.isArray(filteredGames)
-    ? filteredGames.slice(indexOfFirstGame, indexOfLastGame)
-    : [];
-
-  const handleSearch = async (searchTerm) => {
-    try {
-      const { data } = await axios.get(`http://localhost:3005/${searchTerm}`);
-      
-      dispatch(searchVideogame(data));
-      setFilteredGames(data);
-      setCurrentPage(1); // Restablecer la página actual a 1 después de cada búsqueda
-    } catch (error) {
-      console.log("Error al buscar");
-    }
-  };
+  const currentGames = games?.slice(indexOfFirstGame, indexOfLastGame);
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar />
       <div className={styles.conteiner}>
         <Pagination
           gamesForPage={gamesForPage}
