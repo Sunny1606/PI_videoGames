@@ -11,7 +11,6 @@ const Form = () => {
   const genres = useSelector((state) => state.genres);
   const games = useSelector((state) => state.videogames);
 
-
   //estado local de errores y inputs objetos
   const [errors, setErrors] = useState([]);
   const [userData, setUserData] = useState({
@@ -23,9 +22,6 @@ const Form = () => {
     platforms: [],
     genres: [],
   });
-
- 
-  
 
   const getPlatforms = function () {
     let aux = games;
@@ -67,26 +63,12 @@ const Form = () => {
   }
 
   function handleSubmit(e) {
-  //   if (userData.name.length && userData.description.length) {
     e.preventDefault();
     console.log(userData);
     dispatch(postGame(userData));
-      // setUserData({
-      //   name: "",
-      //   description: "",
-      //   image: "",
-      //   released: "",
-      //   rating: "",
-      //   platforms: [],
-      //   genres: [],
-      // });
-      alert("Videojuego Creado!!");
-      navigate("/home");
-      // alert("Formulario incompleto");
-  //   } else {
-  //     e.preventDefault();
-  //   }
-   }
+    alert("Videojuego Creado!!");
+    navigate("/home");
+  }
 
   function handleDelete(el) {
     setUserData({

@@ -13,7 +13,7 @@ const getGames = async (req, res) => {
     const allVideogamesDB = await Videogame.findAll({
       include: {
         model: Genres,
-        atributes: ["name"],
+        // atributes: ["name"],
       },
     });
    

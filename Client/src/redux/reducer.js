@@ -109,7 +109,7 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       // eslint-disable-next-line no-case-declarations
       let filteredGames;
 
-      if (payload === "Apigames") {
+      if (payload === "api") {
         filteredGames = state.videogames;
       } else {
         const isCreated = payload === "created";

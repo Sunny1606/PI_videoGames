@@ -4,6 +4,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const API_KEY = process.env.RAWG_API_KEY;
+const URL = "https://api.rawg.io/api/games";
 const { Videogame, Genres } = require("../../db");
 
 const getVideogamesById = async (req, res) => {
@@ -21,7 +22,7 @@ const getVideogamesById = async (req, res) => {
       const dbVideogame = await Videogame.findByPk(id, {
         include: {
           model: Genres,
-          attributes: ["Genero"],
+          attributes: ["name"],
           through: { attributes: [] },
         },
       });
@@ -64,8 +65,7 @@ const getVideogamesById = async (req, res) => {
 };
 
 const getGameByName = async (req, res) => {
-  
-  const  {name}  = req.query;
+  const name = req.params.name;
 
   try {
     // Buscar en la base de datos
@@ -75,31 +75,21 @@ const getGameByName = async (req, res) => {
           [Op.iLike]: `%${name}%`,
         },
       },
-      // limit: 100,
+      limit: 100,
+    });
 
-      include: {
-        model: Genres,
-        attributes: ["name"],
+    // Buscar en la API
+    const response = await axios.get(URL, {
+      params: {
+        key: API_KEY,
+        page_size: 100,
+        search: name,
       },
     });
-    // Buscar en la API
-    const { data } = await axios.get(
-      `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
-    );
 
+    const videoGamesFromAPI = response.data.results;
 
-    const videoGamesFromAPI = data.results;
-
-    const apiByName = videoGamesFromAPI.map((videogame) => {
-      return {
-        id: videogame.id,
-        name: videogame.name,
-        image: videogame.background_image,
-        genres: videogame.genres,
-      };
-    });
-
-    res.json({ results: [...videoGamesFromDB, ...apiByName] });
+    res.json({ results: [...videoGamesFromDB, ...videoGamesFromAPI] });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -107,41 +97,33 @@ const getGameByName = async (req, res) => {
 
 //obtiene tanto de API como de la base de datos los generos
 const getGenres = async (req, res) => {
-  
+  const URL = `https://api.rawg.io/api/genres?key=${API_KEY}`;
 
   try {
+    const response = await axios.get(URL);
+    const apiGenres = response.data.results;
 
-    const dataGenres = await Genres.findAll();
+    // 2. Verificar si ya existen géneros en la DB
+    const dbGenres = await Genres.findAll();
 
-    if (dataGenres.length > 0) {
-      const mappedGenres = dataGenres.map((genre) => ({
-        id: genre.id,
-        name: genre.name,
-      }));
-      res.json(mappedGenres);
-    } else {
-      // Si no se encontraron géneros en la base de datos, busca en la API
-      
-      const apiResp = await axios.get(
-        `https://api.rawg.io/api/genres?key=${API_KEY}`
+    // 3. Si no hay géneros en la DB, guardarlos desde la API
+    if (dbGenres.length === 0) {
+      await Genres.bulkCreate(
+        apiGenres.map((g) => ({
+          id: g.id,
+          name: g.name,
+        }))
       );
-      const apiGenres = apiResp.data.results;
-
-      // Almacena los géneros de la API en la base de datos
-      await Genres.bulkCreate(apiGenres);
-
-      const mappedApiGenres = apiGenres.map((genre) => ({
-        id: genre.id,
-        name: genre.name,
-      }));
-    
-      res.json(mappedApiGenres);
     }
+
+    // 4. Obtener géneros de la DB
+    const genres = await Genres.findAll();
+    res.json(genres);
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Hubo un error al obtener los géneros" });
+    res.status(500).json({ message: error.message });
   }
-};
+ };
 
 
 

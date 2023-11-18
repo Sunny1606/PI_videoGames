@@ -1,5 +1,8 @@
+//importa el modulo de ruta de express y ccrea una instancia de Router 
 const router = require("express").Router();
 
+
+//importta los controllers de los juegos y los generos 
 const getGames = require ("../handlers/GetControllers/getGames");
 const {
   getVideogamesById,
@@ -8,12 +11,12 @@ const {
 } = require("../handlers/GetControllers/getVideogames");
 const newVideogames = require("../handlers/PostController/postVideogames");
 
+//define las rutas para los endpoints relacionados 
+router.get("/games" , getGames);     // all games
 
-router.get("/games" , getGames);    //todos los juegos de la api y la base de datos
+router.get("/genres", getGenres);   // all genres
 
-router.get("/genres", getGenres);
-
-router.get("/videogamename", getGameByName);     
+router.get("/name/:name", getGameByName);     // BY name
 
 router.get("/detail/:id", getVideogamesById); // BY ID
 

@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       },
       image: {
         type: DataTypes.STRING,
-        defaultValue: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Emoji_u1f62a.svg/2048px-Emoji_u1f62a.svg.png",
+        
       },
       released: {
         type: DataTypes.DATE,
