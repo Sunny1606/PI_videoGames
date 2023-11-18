@@ -57,7 +57,7 @@ export const Pagination = ({
         }`}
         onClick={onNextPage}
       >
-        Next page
+        Next
       </button>
     </div>
   );

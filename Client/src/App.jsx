@@ -7,6 +7,7 @@ import Home from "./components/HomePage/homePage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getGames } from "./redux/actions";
+import "/App.css" ; 
 
 function App() {
 
