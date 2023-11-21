@@ -65,20 +65,23 @@ const getVideogamesById = async (req, res) => {
 
 const getGameByName = async (req, res) => {
   
-  const  name  = req.name;
+  const  {name}  = req.query;
 
   try {
     // Buscar en la base de datos
-   
     const videoGamesFromDB = await Videogame.findAll({
       where: {
         name: {
           [Op.iLike]: `%${name}%`,
         },
       },
-      limit: 100,
-    });
+      // limit: 100,
 
+      include: {
+        model: Genres,
+        attributes: ["name"],
+      },
+    });
     // Buscar en la API
     const { data } = await axios.get(
       `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
@@ -104,9 +107,10 @@ const getGameByName = async (req, res) => {
 
 //obtiene tanto de API como de la base de datos los generos
 const getGenres = async (req, res) => {
-  // const URL = "https://api.rawg.io/api/genres";
+  
 
   try {
+
     const dataGenres = await Genres.findAll();
 
     if (dataGenres.length > 0) {

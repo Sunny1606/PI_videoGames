@@ -1,10 +1,10 @@
 
-const { Videogame, Genres } = require("../../db");
+const { Videogame, Genres } = require ("../../db");
 const { Op } = require("sequelize");
 
-const postVideogames = async (req, res) => {
+const newVideogames = async (req, res) => {
   try {
-    const { name, image, description, released, rating, platform, genres } =
+    const { name, image, description, released, rating, platforms, genres } =
       req.body;
 
     const existingGame = await Videogame.findOne({
@@ -26,27 +26,32 @@ const postVideogames = async (req, res) => {
       description,
       released,
       rating,
-      platform,
+      platforms,
     });
 
+    if (genres && genres.length > 0) {
+      const generosCreados = await Promise.all(
+        genres.map((genre) =>
+          Genres.findOrCreate({
+            where: { name: genre },
+          })
+        )
+      );
 
-    const allGenres = await Genres.findAll({
-      where : {
-        name :  genres , 
-      }     
-     })
-  
+      // Asocia los géneros al videojuego
+      await newVideogames.addGenres(generosCreados.map((g) => g[0]));
+    }
 
-     await newVideogames.setGenres(allGenres);
-   
-    return res.status(201).json(newVideogames);
+     res.status(201).json(newVideogames);
 
   } catch (error) {
-    return res.status(500).json(error.message);
+    // return res.status(500).json(error.message);
+    return res.status(500).json({ error: "Error interno del servidor", message: error.message });
+
   }
 };
 
 
 
-module.exports = postVideogames;
+module.exports = newVideogames;
 

@@ -18,13 +18,13 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         // allowNull: false,
       },
-      platform: {
+      platforms: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       image: {
         type: DataTypes.STRING,
-        
+        defaultValue: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Emoji_u1f62a.svg/2048px-Emoji_u1f62a.svg.png",
       },
       released: {
         type: DataTypes.DATE,

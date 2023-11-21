@@ -6,18 +6,18 @@ const {
   getGameByName,
   getGenres,
 } = require("../handlers/GetControllers/getVideogames");
-const postVideogames = require("../handlers/PostController/postVideogames");
+const newVideogames = require("../handlers/PostController/postVideogames");
 
 
 router.get("/games" , getGames);    //todos los juegos de la api y la base de datos
 
 router.get("/genres", getGenres);
 
-router.get("/name", getGameByName);     
+router.get("/videogamename", getGameByName);     
 
 router.get("/detail/:id", getVideogamesById); // BY ID
 
-router.post("/createdgames", postVideogames); //CREA JUEGOS
+router.post("/createdgames", newVideogames); //CREA JUEGOS
 
 module.exports = router;
 
