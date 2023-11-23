@@ -2,6 +2,8 @@ import {
   GET_GAMES,
   GET_GENRES,
   POST_GAMES,
+  // API_DATA,
+  DB_DATA,
   ORDER_BY_NAME,
   FILTER_BY_GENRE,
   FILTER_BY_RATING,
@@ -14,6 +16,8 @@ const InitialState = {
   videogames: [],
   searchvideogamesCopy: [],
   genres: [],
+  dbData : [],
+  // apiData : []
 };
 
 const rootReducer = (state = InitialState, { type, payload }) => {
@@ -130,6 +134,20 @@ const rootReducer = (state = InitialState, { type, payload }) => {
         ...state,
         videogames: payload,
       };
+
+      // case API_DATA : 
+      // return {
+      //   ...state , 
+      //   apiData: payload,
+      // }
+
+      case DB_DATA : 
+      return {
+        ...state ,
+        dbData : payload
+      }
+
+
 
     default:
       return state;
