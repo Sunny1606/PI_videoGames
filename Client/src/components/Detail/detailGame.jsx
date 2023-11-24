@@ -2,62 +2,28 @@
 
 import { Link, useParams } from "react-router-dom";
 import styles from "./detailGame.module.css";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 
 export default function Detail() {
   const { id } = useParams();
 
   const [data, setData] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Obtener datos de la API
-    const solicitudApi = axios.get(`http://localhost:3005/detail/${id}`);
+    axios
+      .get(`http://localhost:3005/detail/${id}`)
 
-try {
-
-} catch (error) {
-  
-}
-
-
-
-    
-    // Obtener datos de la base de datos local
-    const solicitudBaseDeDatosLocal = 
-  
-    // Utilizar Promise.all para esperar a que ambas solicitudes se completen
-    Promise.all([solicitudApi, solicitudBaseDeDatosLocal])
-      .then((respuestas) => {
-        const datosApi = respuestas[0].data;
-        const datosBaseDeDatosLocal = respuestas[1]; // Reemplaza esto con los datos reales de la base de datos local
-  
-        // Combinar datos de ambas fuentes, asumiendo que la estructura de datos es similar
-        const datosCombinados = { ...datosApi, ...datosBaseDeDatosLocal };
-  
-        // Actualizar el estado con los datos combinados
-        setData(datosCombinados);
+      .then(({ data }) => {
+        setData(data);
       })
-      .catch((errores) => {
-        console.log("Error al obtener datos:", errores);
+      .catch((error) => {
+        console.log("Error al obtener los detalles de videogame:", error);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3005/detail/${id}`)
-
-  //     .then(({ data }) => {
-  //       setData(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error al obtener los detalles de videogame:", error);
-  //     });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   return (
     <div className={styles.conteiner}>

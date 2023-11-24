@@ -64,10 +64,17 @@ const Form = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(userData);
-    dispatch(postGame(userData));
-    alert("Videojuego Creado!!");
-    navigate("/home");
+    const formErrors = validation(userData);
+    // Verifico si hay errores
+    if (Object.keys(formErrors).length === 0) {
+      // No hay errores, puede enviar la solicitud
+      dispatch(postGame(userData));
+      alert("Videojuego Creado!!");
+      navigate("/home");
+    } else {
+      // Hay errores, actualiza el estado de los errores
+      setErrors(formErrors);
+    }
   }
 
   function handleDelete(el) {
@@ -183,7 +190,11 @@ const Form = () => {
           </div>
         </div>
         <div className={style.buttonConteiner}>
-          <button className={style.buttonCreated} type="submit">
+          <button
+            className={style.buttonCreated}
+            type="submit"
+            disabled={Object.keys(errors).length > 0}
+          >
             Create
           </button>
 

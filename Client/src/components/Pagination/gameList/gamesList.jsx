@@ -16,10 +16,8 @@ export const GamesList = () => {
   const indexOfLastGame = currentPage * gamesForPage;
   const indexOfFirstGame = indexOfLastGame - gamesForPage;
 
-  const currentGames =
-    games && Array.isArray(games)
-      ? games.slice(indexOfFirstGame, indexOfLastGame)
-      : [];
+
+  const currentGames = games && Array.isArray(games) ? games.slice(indexOfFirstGame, indexOfLastGame) : [];
 
   return (
     <>
@@ -45,10 +43,8 @@ export const GamesList = () => {
             <div className={styles.conteiner2}>
               <h2>{game.name}</h2>
               <p>
-                {game.genres
-                  .map((genre) => (genre.name ? genre.name : genre))
-                  .join(", ")}
-              </p>
+  {game.genres.map((genre) => (genre.name ? genre.name : genre)).join(", ")}
+</p>
             </div>
           </div>
         ))}
