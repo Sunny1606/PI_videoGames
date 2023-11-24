@@ -2,8 +2,6 @@ import {
   GET_GAMES,
   GET_GENRES,
   POST_GAMES,
-  // API_DATA,
-  // DB_DATA,
   ORDER_BY_NAME,
   FILTER_BY_GENRE,
   FILTER_BY_RATING,
@@ -14,10 +12,9 @@ import {
 const InitialState = {
   searchVideogame: [],
   videogames: [],
+  videogamesAux: [],
   searchvideogamesCopy: [],
   genres: [],
-  // dbData : [],
-  // apiData : []
 };
 
 const rootReducer = (state = InitialState, { type, payload }) => {
@@ -27,7 +24,9 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       return {
         ...state,
         videogames: payload,
+        videogamesAux: payload,
       };
+
     case GET_GENRES:
       return {
         ...state,
@@ -43,9 +42,9 @@ const rootReducer = (state = InitialState, { type, payload }) => {
 
     case FILTER_BY_GENRE:
       // eslint-disable-next-line no-case-declarations
-      const { videogames } = state;
+      const { videogamesAux } = state;
       // eslint-disable-next-line no-case-declarations
-      const filteredGen = videogames.filter((game) =>
+      const filteredGen = videogamesAux.filter((game) =>
         game.genres.includes(payload)
       );
       return {
@@ -113,11 +112,17 @@ const rootReducer = (state = InitialState, { type, payload }) => {
       let filteredGames;
 
       if (payload === "api") {
-        filteredGames = state.videogames;
+        // filteredGames = state.videogames;
+        const isCreated = payload === "api";
+
+        filteredGames = state.videogamesAux.filter((el) => {
+          // Lógica de filtrado para juegos creados o de la API
+          return !isCreated ? el.createdInDb : !el.createdInDb;
+        });
       } else {
         const isCreated = payload === "created";
 
-        filteredGames = state.videogames.filter((el) => {
+        filteredGames = state.videogamesAux.filter((el) => {
           // Lógica de filtrado para juegos creados o de la API
           return isCreated ? el.createdInDb : !el.createdInDb;
         });

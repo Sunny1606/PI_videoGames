@@ -29,7 +29,7 @@ export default function Detail() {
     <div className={styles.conteiner}>
       <div className={styles.detail}>
         <div className={styles.titleH3}>
-          <h2> {data.id}</h2>
+          {/* <h2> {data.id}</h2> */}
           <h3> Name: {data.Name}</h3>
           <h3 className={styles.description}>
             Description: {data.Description}

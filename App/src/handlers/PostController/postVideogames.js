@@ -6,6 +6,7 @@ const newVideogames = async (req, res) => {
   try {
     const { name, image, description, released, rating, platforms, genres } =
       req.body;
+  
 
     const existingGame = await Videogame.findOne({
       where: {

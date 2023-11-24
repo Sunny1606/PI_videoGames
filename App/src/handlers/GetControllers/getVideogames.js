@@ -19,22 +19,27 @@ const getVideogamesById = async (req, res) => {
   try {
     // busco en la bdd si el id es uuid
     if (isNaN(id)) {
-      const dbVideogame = await Videogame.findByPk(id, {
+      const { dataValues } = await Videogame.findByPk(id, {
         include: {
           model: Genres,
           attributes: ["name"],
-          through: { attributes: [] },
+          // through: { attributes: [] },
         },
       });
+      const dbVideogame = dataValues;
+
+      console.log(dbVideogame.genres[0].dataValues.name);
+
       const dbFiltered = {
-        id: dbVideogame.ID,
-        Name: dbVideogame.Name,
-        Platforms: dbVideogame.Platforms,
-        Description: dbVideogame.Description,
-        Released: dbVideogame.Released,
-        Rating: dbVideogame.Rating,
-        Genres: dbVideogame.Genres?.map((g) => g.Genre).join(", "),
-        Image: dbVideogame.Image,
+        id: dbVideogame.id,
+        Name: dbVideogame.name,
+        Platforms: dbVideogame.platforms,
+        Description: dbVideogame.description,
+        Released: dbVideogame.released,
+        Rating: dbVideogame.rating,
+        //  Genres: dbVideogame.genres[0].dataValues.map((g) => g.Genre).join(", "),
+        Genres: dbVideogame.genres[0].dataValues.name,
+        Image: dbVideogame.image,
       };
 
       if (!dbVideogame) {
@@ -119,15 +124,10 @@ const getGenres = async (req, res) => {
     // 4. Obtener géneros de la DB
     const genres = await Genres.findAll();
     res.json(genres);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
- };
-
-
-
-
+};
 
 module.exports = {
   getVideogamesById,

@@ -29,8 +29,6 @@ const Home = () => {
   }, []);
 
 
-
-
   function handleSortName(e) {
     dispatch(orderByName(e.target.value));
     setOrder(e.target.value);

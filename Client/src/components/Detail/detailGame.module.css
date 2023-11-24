@@ -1,7 +1,8 @@
 .conteiner {
-  height: 400px;
-  width: 600px;
-  margin-left: 15px;
+  /* height: 400px; */
+  width: 95%;
+  margin: auto;
+  
 }
 
 .buttonConteiner {
@@ -31,8 +32,11 @@
 }
 
 .titleH3 {
+  width: 100%;
   padding: 10px;
   color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.336);
+  backdrop-filter: blur(2px);
 }
 
 .description {

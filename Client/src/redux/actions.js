@@ -13,6 +13,7 @@ export function getGames() {
   return async function (dispatch) {
     try {
       let response = await axios.get("http://localhost:3005/games");
+      
       return dispatch({
         type: GET_GAMES,
         payload: response.data,

@@ -8,15 +8,15 @@ const MAX_RESULTS = 100;
 
 const getGames = async (req, res) => {
   try {
-    // const name = req.query;
-
-    const allVideogamesDB = await Videogame.findAll({
+    const data = await Videogame.findAll({
       include: {
         model: Genres,
-        // atributes: ["name"],
       },
     });
-   
+
+    const allVideogamesDB = data.map((game) => {
+      return game.dataValues;
+    });
 
     const API_KEY = process.env.RAWG_API_KEY;
     let currentPage = 1;
@@ -38,16 +38,16 @@ const getGames = async (req, res) => {
         genres: game.genres.map((genre) => genre.name),
         rating: game.rating,
       }));
-      
-      
 
-      allGames = [...allGames, ...allVideogamesDB , ...games];
+      allGames = [...allGames, ...games]; 
       totalResults += games.length;
       currentPage += 1;
     }
-  
+
+    allGames = [...allGames, ...allVideogamesDB];
+
     res.json(allGames);
-  
+    
   } catch (error) {
     res.status(500).send("Hubo un error al obtener los videojuegos.");
   }
