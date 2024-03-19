@@ -21,6 +21,7 @@ const Form = () => {
     rating: "",
     platforms: [],
     genres: [],
+    // selectOption: ""
   });
 
   const getPlatforms = function () {
@@ -164,6 +165,7 @@ const Form = () => {
           </div>
           <div className={style.conteinerSelect}>
             <select onChange={handlePlataforms}>
+              <option value="">Selection</option> 
               {platform.map((e) => (
                 <option key={e} value={e}>
                   {e}
@@ -180,6 +182,7 @@ const Form = () => {
           <div>
             <div className={style.conteinerSelect}>
               <select onChange={handleGenre}>
+              <option value="">Selection</option> 
                 {genres.map((e) => (
                   <option key={e.name} value={e.name}>
                     {e.name}
