@@ -28,7 +28,7 @@ const getVideogamesById = async (req, res) => {
       });
       const dbVideogame = dataValues;
 
-      console.log(dbVideogame.genres[0].dataValues.name);
+      
 
       const dbFiltered = {
         id: dbVideogame.id,
@@ -37,7 +37,6 @@ const getVideogamesById = async (req, res) => {
         Description: dbVideogame.description,
         Released: dbVideogame.released,
         Rating: dbVideogame.rating,
-        //  Genres: dbVideogame.genres[0].dataValues.map((g) => g.Genre).join(", "),
         Genres: dbVideogame.genres[0].dataValues.name,
         Image: dbVideogame.image,
       };

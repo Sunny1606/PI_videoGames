@@ -71,7 +71,6 @@ const Form = () => {
     // Verifico si hay errores
     if (Object.keys(formErrors).length === 0) {
       // No hay errores, puede enviar la solicitud
-      console.log(userData);
       dispatch(postGame(userData));
       alert("Videojuego Creado!!");
       navigate("/home");

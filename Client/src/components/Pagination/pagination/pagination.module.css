@@ -7,7 +7,7 @@
 
 .paginationButtons button {
   cursor: pointer;
-  background-color: beige;
+  /* background-color: beige; */
   width: 80px;
   height: 25px;
 }
@@ -25,8 +25,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   margin-bottom: 50px;
   margin: 10px;
   cursor: pointer;
+}
+
+.current {
+  background-color: orangered;
+  color: black;
 }

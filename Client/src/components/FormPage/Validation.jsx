@@ -3,6 +3,8 @@ function validation(input) {
     let errors = {};
     if (!input.name) {
       errors.name = "Se requiere un nombre!";
+    } else if (input.name.length > 20) {
+    errors.name = "El nombre no puede superar los 20 caracteres";  
     }
     if (!input.description) {
       errors.description = "Se debe agregar una descripción!";
